@@ -2,43 +2,44 @@
 
 import { BsCart } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
+import { RxHamburgerMenu } from "react-icons/rx";
 
 
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../Container'
 import logo from "../../../public/logo.png"
 import Image from 'next/image'
 
 export default function Navbar() {
+
+    const [drawer, setDrawer] = useState(false);
+
     return (
         <Container>
             <div className="navbar border-b border-b-gray-200">
                 <div className="navbar-start">
-                    <div className="dropdown">
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                            <Image height={50} width={200} src={logo} alt='BW'></Image>
+                    <div className="dropdown flex items-center lg:hidden">
+                        <div>
+                            <button onClick={() => setDrawer(true)}>Open</button>
                         </div>
-                        <ul
-                            tabIndex={0}
-                            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            <li><a>Home</a></li>
-                            <li>
-                                <a>Category</a>
-                                <ul className="p-2">
-                                    <li><a>Submenu 1</a></li>
-                                    <li><a>Submenu 2</a></li>
-                                </ul>
-                            </li>
-                            <li><a>Item 3</a></li>
-                        </ul>
+                        {
+                            drawer && <div className="h-[100vh] -top-[12px] bg-amber-400 w-[80vw] absolute -left-2 z-10">
+                                <button onClick={() => setDrawer(false)}>
+                                    close
+                                </button>
+                            </div>
+                        }
+                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                            <Image width={40} src={logo} alt='BW'></Image>
+                        </div>
                     </div>
-                    <div className='flex items-center gap-x-2'>
+                    <div className='hidden lg:flex items-center gap-x-2'>
                         <Image width={50} src={logo} alt='BW'></Image>
                         <p className='text-2xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
                     </div>
                 </div>
 
-                <div className="w-full">
+                <div className="w-full hidden lg:block">
                     <form>
                         <input
                             className="border-[1px] outline-0 border-orange-400 w-full px-3 py-2 rounded-3xl"
