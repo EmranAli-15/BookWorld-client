@@ -1,0 +1,19 @@
+.drawer {
+    position: absolute;
+    width: 80vw;
+    top: 0;
+    height: 100dvh;
+    background-color: #fff;
+    transition: all 1s;
+}
+
+.open {
+    left: 0;
+    z-index: 20;
+}
+
+.close {
+    left: -80vw;
+    width: 0px;
+    z-index: 0;
+}

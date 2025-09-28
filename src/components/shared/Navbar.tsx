@@ -3,6 +3,8 @@
 import { BsCart } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { IoClose } from "react-icons/io5";
+import styles from './navbar.module.css'
 
 
 import React, { useState } from 'react'
@@ -16,49 +18,151 @@ export default function Navbar() {
 
     return (
         <Container>
-            <div className="navbar border-b border-b-gray-200">
-                <div className="navbar-start">
-                    <div className="dropdown flex items-center lg:hidden">
-                        <div>
-                            <button onClick={() => setDrawer(true)}>Open</button>
-                        </div>
-                        {
-                            drawer && <div className="h-[100vh] -top-[12px] bg-amber-400 w-[80vw] absolute -left-2 z-10">
-                                <button onClick={() => setDrawer(false)}>
-                                    close
-                                </button>
-                            </div>
-                        }
-                        <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+
+            <div>
+                <div>
+                    <div className="flex justify-between lg:hidden items-center p-2 border-b border-gray-200">
+                        <div className="flex items-center gap-x-2">
+                            <button onClick={() => setDrawer(true)}>
+                                <RxHamburgerMenu size={25}></RxHamburgerMenu>
+                            </button>
                             <Image width={40} src={logo} alt='BW'></Image>
                         </div>
+
+                        <div className={`${drawer ? 'h-[100dvh] w-[100vw] absolute bg-[#00000040] z-10 top-0 left-0' : ''}`}></div>
+
+                        <div className={`${drawer ? [styles.open] : styles.close} ${styles.drawer} px-2`}>
+                            <div className="flex justify-between items-center">
+                                <p className='text-xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
+                                <button
+                                    onClick={() => setDrawer(false)}
+                                    className='font-bold text-3xl p-2'>
+                                    <IoClose size={40}></IoClose>
+                                </button>
+                            </div>
+                            <hr className="text-gray-200" />
+                            <div className="overflow-auto h-[calc(100dvh-65px)]">
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                                <li>Hello</li>
+                            </div>
+                        </div>
+
+                        <div className="flex items-center gap-x-10">
+                            <div className="indicator">
+                                <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">2</span>
+                                <BsCart size={20}></BsCart>
+                            </div>
+                            <div className="flex items-center gap-x-1 w-full">
+                                <FaRegUser size={20}></FaRegUser>
+                                <p>Sign in</p>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className='hidden lg:flex items-center gap-x-2'>
+
+                    <div className="block lg:hidden py-1 bg-cyan-50">
+                        <form className="w-full flex justify-center">
+                            <input
+                                className="border-[1px] outline-0 border-orange-400 w-[90%] px-3 py-2 rounded-3xl"
+                                placeholder="search by book or author."
+                                required
+                                type="search"
+                                name="search"
+                            />
+                        </form>
+                    </div>
+                </div>
+
+
+                {/* FOR LARGE SCREEN */}
+                <div className="lg:flex hidden justify-between items-center p-1 border-b border-gray-200">
+                    <div className='flex items-center gap-x-2'>
                         <Image width={50} src={logo} alt='BW'></Image>
-                        <p className='text-2xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
+                        <div className="w-auto">
+                            <p className='text-2xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
+                        </div>
                     </div>
-                </div>
 
-                <div className="w-full hidden lg:block">
-                    <form>
-                        <input
-                            className="border-[1px] outline-0 border-orange-400 w-full px-3 py-2 rounded-3xl"
-                            placeholder="search by book or author."
-                            required
-                            type="search"
-                            name="search"
-                        />
-                    </form>
-                </div>
-
-                <div className="navbar-end gap-x-10">
-                    <div className="indicator">
-                        <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">2</span>
-                        <BsCart size={20}></BsCart>
+                    <div className="w-[40%]">
+                        <form>
+                            <input
+                                className="border-[1px] outline-0 border-orange-400 w-full px-3 py-2 rounded-3xl"
+                                placeholder="search by book or author."
+                                required
+                                type="search"
+                                name="search"
+                            />
+                        </form>
                     </div>
-                    <div className="flex items-center gap-x-1">
-                        <FaRegUser size={20}></FaRegUser>
-                        <p>Sign in</p>
+
+                    <div className="flex items-center gap-x-10">
+                        <div className="indicator">
+                            <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">2</span>
+                            <BsCart size={20}></BsCart>
+                        </div>
+                        <div className="flex items-center gap-x-1 w-full">
+                            <FaRegUser size={20}></FaRegUser>
+                            <p>Sign in</p>
+                        </div>
                     </div>
                 </div>
             </div>
