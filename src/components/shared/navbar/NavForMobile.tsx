@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 
 import styles from './navbar.module.css'
@@ -8,7 +10,7 @@ import Image from 'next/image'
 import { CartIcon, CloseIcon, MenuIcon, UserIcon } from '@/icons/Icons';
 
 
-export default function NavForMobile({ categories: data }: { categories: any }) {
+export default function NavForMobile({ categories, writers }: { categories: any, writers: any }) {
 
     const [drawer, setDrawer] = useState(false);
 
@@ -26,7 +28,7 @@ export default function NavForMobile({ categories: data }: { categories: any }) 
 
                 <div className={`${drawer ? [styles.open] : styles.close} ${styles.drawer} px-2`}>
                     <div className="flex justify-between items-center py-2">
-                        <p className='text-xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
+                        <p className='text-xl font-bold'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
                         <button
                             onClick={() => setDrawer(false)}
                             className='font-bold text-3xl p-2'>
@@ -35,16 +37,31 @@ export default function NavForMobile({ categories: data }: { categories: any }) 
                     </div>
                     <hr className="text-gray-200" />
                     <div className="overflow-auto h-[calc(100dvh-65px)]">
-                        <h1 className='heading text-orange-400'>Categories</h1>
+                        <h1 className='text-xl font-medium text-orange-400'>Categories</h1>
                         <ul>
                             {
-                                data.map((category: any) => (
+                                categories.data.map((category: any) => (
                                     <li
                                         key={category._id}
                                         className='flex items-center gap-x-1'
                                     >
                                         <span>&#9679;</span>
                                         {category.name}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+
+                        <h1 className='text-xl font-medium text-orange-400 mt-3'>Writers</h1>
+                        <ul>
+                            {
+                                writers.data.map((writer: any) => (
+                                    <li
+                                        key={writer._id}
+                                        className='flex items-center gap-x-1'
+                                    >
+                                        <span>&#9679;</span>
+                                        {writer.name}
                                     </li>
                                 ))
                             }

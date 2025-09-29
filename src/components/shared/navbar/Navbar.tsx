@@ -1,22 +1,23 @@
-"use client"
-
-
 import React from 'react'
 import Container from "@/components/Container";
 import NavForMobile from "./NavForMobile";
 import NavbarForPc from "./NavbarForPc";
+import { getAllCategory, getAllWriter } from '@/services/Services';
 
-export default function Navbar({ categories: data }: { categories: any }) {
+export default async function Navbar() {
+
+    const getCategory = getAllCategory();
+    const getWriter = getAllWriter();
+
+    const [categories, writers] = await Promise.all([getCategory, getWriter]);
 
     return (
-        <Container>
-            <div>
+        <div>
 
-                <NavForMobile categories={data}></NavForMobile>
+            <NavForMobile categories={categories} writers={writers}></NavForMobile>
 
-                <NavbarForPc></NavbarForPc>
+            <NavbarForPc></NavbarForPc>
 
-            </div>
-        </Container>
+        </div>
     )
 }
