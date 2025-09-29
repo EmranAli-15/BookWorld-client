@@ -5,10 +5,15 @@ body {
   background: #fff;
   min-width: 100vw;
   min-height: 100dvh;
-};
+}
 
 .LandingHeading {
   font-size: clamp(1.5rem, 8vw, 3.8rem);
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.heading {
+  font-size: clamp(1rem, 5vw, 3rem);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 

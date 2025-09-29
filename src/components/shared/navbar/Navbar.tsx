@@ -6,13 +6,13 @@ import Container from "@/components/Container";
 import NavForMobile from "./NavForMobile";
 import NavbarForPc from "./NavbarForPc";
 
-export default function Navbar() {
+export default function Navbar({ categories: data }: { categories: any }) {
 
     return (
         <Container>
             <div>
 
-                <NavForMobile></NavForMobile>
+                <NavForMobile categories={data}></NavForMobile>
 
                 <NavbarForPc></NavbarForPc>
 

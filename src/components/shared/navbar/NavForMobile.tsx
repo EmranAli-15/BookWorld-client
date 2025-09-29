@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { CartIcon, CloseIcon, MenuIcon, UserIcon } from '@/icons/Icons';
 
 
-export default function NavForMobile() {
+export default function NavForMobile({ categories: data }: { categories: any }) {
 
     const [drawer, setDrawer] = useState(false);
 
@@ -35,13 +35,20 @@ export default function NavForMobile() {
                     </div>
                     <hr className="text-gray-200" />
                     <div className="overflow-auto h-[calc(100dvh-65px)]">
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
-                        <li>Hello</li>
+                        <h1 className='heading text-orange-400'>Categories</h1>
+                        <ul>
+                            {
+                                data.map((category: any) => (
+                                    <li
+                                        key={category._id}
+                                        className='flex items-center gap-x-1'
+                                    >
+                                        <span>&#9679;</span>
+                                        {category.name}
+                                    </li>
+                                ))
+                            }
+                        </ul>
                     </div>
                 </div>
 

@@ -3,13 +3,32 @@ import Navbar from "@/components/shared/navbar/Navbar";
 import Image from "next/image";
 
 import landingPageBookIcon from "../../../public/landingPageBookIcon.svg"
+import { getAllCategory } from "@/services/Services";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+
+  const { data } = await getAllCategory();
+
   return (
     <div>
       <Container>
 
-        <Navbar></Navbar>
+        <Navbar categories={data}></Navbar>
+
+        <div className="hidden lg:flex gap-x-5 overflow-auto w-full my-1 px-2 md:px-0">
+          {
+            data.map((category: any) => (
+              <Link
+                href=""
+                key={category._id}
+              >
+                <p className="w-full hover:text-blue-500">{category.name}</p>
+              </Link>
+            ))
+          }
+        </div>
+
       </Container>
 
       <div className="bg-linear-to-bl from-orange-50 to-green-50">
