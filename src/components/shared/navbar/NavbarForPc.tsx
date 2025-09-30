@@ -5,13 +5,14 @@ import logo from "../../../../public/logo.png"
 import Image from 'next/image'
 import { CartIcon, UserIcon } from '@/icons/Icons'
 import Container from '@/components/Container'
+import Link from 'next/link'
 
 export default function NavbarForPc() {
     return (
         <Container>
             <div className="lg:flex hidden justify-between items-center p-1 border-b border-gray-200">
                 <div className='flex items-center gap-x-2'>
-                    <Image width={50} src={logo} alt='BW'></Image>
+                    <Link href="/"><Image width={50} src={logo} alt='BW'></Image></Link>
                     <div className="w-auto">
                         <p className='text-2xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
                     </div>
