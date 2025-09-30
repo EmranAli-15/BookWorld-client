@@ -1,8 +1,7 @@
 "use client"
 
 import Container from '@/components/Container'
-import { UserContext } from '@/contextProvider/ContextProvider'
-import { booksApi, useGetBooksQuery } from '@/redux/features/bookApi'
+import { booksApi } from '@/redux/features/bookApi'
 import { useAppDispatch } from '@/redux/hooks'
 import Image from 'next/image'
 import React, { useContext, useEffect, useState } from 'react'

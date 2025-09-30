@@ -10,7 +10,15 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        getMyCart: build.query({
+            query: (id) => (
+                {
+                    url: `/cart/myCart/${id}`,
+                    method: 'GET',
+                }
+            )
+        }),
     }),
 })
 
-export const { useGetBooksQuery } = booksApi;
+export const { useGetBooksQuery, useGetMyCartQuery } = booksApi;

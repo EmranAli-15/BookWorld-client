@@ -9,6 +9,7 @@ import logo from "../../../../public/logo.png"
 import Image from 'next/image'
 import { CartIcon, CloseIcon, MenuIcon, UserIcon } from '@/icons/Icons';
 import Link from 'next/link'
+import Options from './Options'
 
 
 export default function NavForMobile({ categories, writers }: { categories: any, writers: any }) {
@@ -70,16 +71,7 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                     </div>
                 </div>
 
-                <div className="flex items-center gap-x-10">
-                    <div className="indicator">
-                        <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">2</span>
-                        <CartIcon></CartIcon>
-                    </div>
-                    <div className="flex items-center gap-x-1 w-full">
-                        <UserIcon></UserIcon>
-                        <Link href="/login">Sign in</Link>
-                    </div>
-                </div>
+                <Options></Options>
 
             </div>
 

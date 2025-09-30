@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { CartIcon, UserIcon } from '@/icons/Icons'
 import Container from '@/components/Container'
 import Link from 'next/link'
+import Options from './Options'
 
 export default function NavbarForPc() {
     return (
@@ -30,16 +31,7 @@ export default function NavbarForPc() {
                     </form>
                 </div>
 
-                <div className="flex items-center gap-x-10">
-                    <div className="indicator">
-                        <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">2</span>
-                        <CartIcon></CartIcon>
-                    </div>
-                    <div className="flex items-center gap-x-1 w-full">
-                        <UserIcon></UserIcon>
-                        <Link href="/login">Sign in</Link>
-                    </div>
-                </div>
+                <Options></Options>
             </div>
         </Container>
     )
