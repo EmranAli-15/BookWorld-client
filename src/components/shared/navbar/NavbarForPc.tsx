@@ -37,7 +37,7 @@ export default function NavbarForPc() {
                     </div>
                     <div className="flex items-center gap-x-1 w-full">
                         <UserIcon></UserIcon>
-                        <p>Sign in</p>
+                        <Link href="/login">Sign in</Link>
                     </div>
                 </div>
             </div>

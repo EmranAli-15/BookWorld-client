@@ -1,10 +1,11 @@
 "use client"
 
 import Container from '@/components/Container'
+import { UserContext } from '@/contextProvider/ContextProvider'
 import { booksApi, useGetBooksQuery } from '@/redux/features/bookApi'
 import { useAppDispatch } from '@/redux/hooks'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 export default function page() {
     const dispatch = useAppDispatch();
@@ -47,7 +48,7 @@ export default function page() {
 
                 <div className='flex justify-center mt-2'>
                     <button disabled={noMoreBooks} onClick={() => setPage(page + 1)} className="btn btn-outline btn-secondary">
-                        {noMoreBooks ? "NO MORE BOOKD" : "Load More"}
+                        {noMoreBooks ? "NO MORE BOOKS" : "Load More"}
                     </button>
                 </div>
             </Container>

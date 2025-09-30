@@ -9,14 +9,17 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.9.0",
+    "js-cookie": "^3.0.5",
     "next": "15.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-redux": "^9.2.0",
+    "react-toastify": "^11.0.5",
     "redux": "^5.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

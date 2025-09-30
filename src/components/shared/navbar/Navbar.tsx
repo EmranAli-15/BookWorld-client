@@ -1,5 +1,4 @@
 import React from 'react'
-import Container from "@/components/Container";
 import NavForMobile from "./NavForMobile";
 import NavbarForPc from "./NavbarForPc";
 import { getAllCategory, getAllWriter } from '@/services/Services';

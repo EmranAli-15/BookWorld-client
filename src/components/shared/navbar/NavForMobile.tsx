@@ -8,6 +8,7 @@ import styles from './navbar.module.css'
 import logo from "../../../../public/logo.png"
 import Image from 'next/image'
 import { CartIcon, CloseIcon, MenuIcon, UserIcon } from '@/icons/Icons';
+import Link from 'next/link'
 
 
 export default function NavForMobile({ categories, writers }: { categories: any, writers: any }) {
@@ -76,7 +77,7 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                     </div>
                     <div className="flex items-center gap-x-1 w-full">
                         <UserIcon></UserIcon>
-                        <p>Sign in</p>
+                        <Link href="/login">Sign in</Link>
                     </div>
                 </div>
 
