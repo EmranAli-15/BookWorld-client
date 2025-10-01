@@ -7,8 +7,7 @@ import styles from './navbar.module.css'
 
 import logo from "../../../../public/logo.png"
 import Image from 'next/image'
-import { CartIcon, CloseIcon, MenuIcon, UserIcon } from '@/icons/Icons';
-import Link from 'next/link'
+import { CloseIcon, MenuIcon } from '@/icons/Icons';
 import Options from './Options'
 
 

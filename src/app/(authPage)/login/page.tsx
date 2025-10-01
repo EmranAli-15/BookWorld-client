@@ -1,6 +1,7 @@
 "use client"
 
 import Container from '@/components/Container'
+import { useUser } from '@/contextProvider/ContextProvider';
 import { useUserLoginMutation } from '@/redux/features/authApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -8,6 +9,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { toast, ToastContainer } from 'react-toastify';
 
 export default function page() {
+    const { setLoading } = useUser();
     const router = useRouter();
 
     const [email, setEmail] = useState("emran@gmail.com");
@@ -26,7 +28,10 @@ export default function page() {
 
 
     useEffect(() => {
-        if (isSuccess) router.push("/")
+        if (isSuccess){
+            router.push("/");
+            setLoading(true);
+        }
         if (isError) {
             const err = resError as any;
             toast.error(err.data.message)

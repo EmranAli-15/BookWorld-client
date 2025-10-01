@@ -3,21 +3,35 @@
 import { useUser } from '@/contextProvider/ContextProvider'
 import { CartIcon, UserIcon } from '@/icons/Icons'
 import { booksApi } from '@/redux/features/bookApi'
-import { useAppDispatch } from '@/redux/hooks'
+import { addToMyCart, setPreCart } from '@/redux/features/bookSlice'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { getLocalCart } from '@/utils/localCart'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 export default function Options() {
     const dispatch = useAppDispatch();
+
     const { user } = useUser();
     const [myCart, setMyCart] = useState(0);
 
+    const getCartData = useAppSelector(state => state.myCart);
+
+    useEffect(() => {
+        setMyCart(getCartData.cart)
+    }, [getCartData])
 
     useEffect(() => {
         const fn = async () => {
-            if (user?.userId) {
+            if (user) {
                 const data = await dispatch(booksApi.endpoints.getMyCart.initiate(user?.userId)).unwrap();
                 setMyCart(data.data?.length);
+                dispatch(setPreCart(data.data?.length));
+            }
+            else {
+                const cart = getLocalCart();
+                dispatch(setPreCart(cart));
+                setMyCart(cart);
             }
         };
         fn();
@@ -28,7 +42,7 @@ export default function Options() {
         <div className="flex items-center gap-x-10">
             <div className="indicator">
                 <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">{myCart}</span>
-                <CartIcon></CartIcon>
+                <Link href="/cart"><CartIcon></CartIcon></Link>
             </div>
             <div className="flex items-center gap-x-1 w-full">
                 {

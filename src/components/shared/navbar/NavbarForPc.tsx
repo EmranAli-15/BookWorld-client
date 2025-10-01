@@ -3,7 +3,6 @@ import React from 'react'
 
 import logo from "../../../../public/logo.png"
 import Image from 'next/image'
-import { CartIcon, UserIcon } from '@/icons/Icons'
 import Container from '@/components/Container'
 import Link from 'next/link'
 import Options from './Options'

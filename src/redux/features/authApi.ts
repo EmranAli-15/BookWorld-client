@@ -17,7 +17,7 @@ export const booksApi = baseApi.injectEndpoints({
 
                 } catch (error) { }
             }
-        }),
+        })
     }),
 })
 

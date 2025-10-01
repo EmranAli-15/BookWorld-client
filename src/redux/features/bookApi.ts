@@ -18,7 +18,16 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        addToCart: build.mutation({
+            query: (data) => (
+                {
+                    url: "/cart/addToCart",
+                    method: 'POST',
+                    body: data
+                }
+            )
+        }),
     }),
 })
 
-export const { useGetBooksQuery, useGetMyCartQuery } = booksApi;
+export const { useGetBooksQuery, useGetMyCartQuery, useAddToCartMutation } = booksApi;
