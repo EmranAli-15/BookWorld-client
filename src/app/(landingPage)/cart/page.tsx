@@ -3,8 +3,10 @@
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
 import { booksApi } from '@/redux/features/bookApi';
+import { removeOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 
 export default function Cart() {
@@ -16,11 +18,14 @@ export default function Cart() {
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
 
-    const handleSelection = ({ checked, price }: { checked: boolean, price: number }) => {
+    const handleSelection = ({ checked, product }: { checked: boolean, product: any }) => {
+        const details = { userId: user.userId, productId: product._id, price: product.price };
         if (checked) {
-            setTotalProductPrice(totalProductPrice + price);
+            setTotalProductPrice(totalProductPrice + product.price);
+            dispatch(setOrderDetails(details));
         } else {
-            setTotalProductPrice(totalProductPrice - price);
+            setTotalProductPrice(totalProductPrice - product.price);
+            dispatch(removeOrderDetails(details));
         }
     }
 
@@ -51,10 +56,10 @@ export default function Cart() {
                 <div className='flex justify-between border-b-2 border-b-amber-100 p-2 bgColor' key={book._id}>
                     <div className='flex items-center gap-x-1'>
                         <div>
-                            <input onChange={(e) => handleSelection({ checked: e.target.checked, price: book.productId.price })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
+                            <input onChange={(e) => handleSelection({ checked: e.target.checked, product: book.productId })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
                         </div>
                         <div className='w-[110px]'>
-                            <Image width={100} height={140} src="https://rokbucket.rokomari.io/ProductNew20190903/130X186/Bishad_Shindu-Mir_Mosharrof_Hossain-f591a-277781.jpg" alt={book.productId.name}></Image>
+                            <Image width={90} height={130} src="https://rokbucket.rokomari.io/ProductNew20190903/130X186/Bishad_Shindu-Mir_Mosharrof_Hossain-f591a-277781.jpg" alt={book.productId.name}></Image>
                         </div>
                     </div>
                     <div className='flex items-center justify-between w-full'>
@@ -112,7 +117,9 @@ export default function Cart() {
                             </div>
 
                             <div className='mt-2'>
-                                <button className='btn btn-secondary w-full'>Go For Order</button>
+                                <Link href="/orderProcess">
+                                    <button className='btn btn-secondary w-full'>Go For Order</button>
+                                </Link>
                             </div>
                         </div>
                     }
