@@ -90,8 +90,8 @@ export default function Cart() {
                 </div>
 
                 <div className='lg:w-[40%] lg:sticky lg:h-fit lg:top-16'>
-                    <div className='bg-linear-to-bl from-orange-50 to-green-50 p-2'>
-                        <h1 className='heading'>Shipping Address</h1>
+                    <div className='bgColor p-2'>
+                        <h1 className='heading text-center border-b border-gray-300'>Shipping Address</h1>
                         {
                             user && <div>
                                 <p>{user.name}</p>
@@ -100,13 +100,22 @@ export default function Cart() {
                             </div>
                         }
                     </div>
-                    <div className='bg-linear-to-bl from-orange-50 to-green-50 p-2 mt-2'>
-                        <h1>cart summary</h1>
-                        <h1>Total Coast</h1>
-                        {
-                            totalProductPrice
-                        }
+                    <div className='bgColor p-2 mt-2'>
+                        <h1 className='font-medium heading text-center border-b border-gray-300'>Checkout Summary</h1>
+                        <h1 className='text-2xl font-bold description border-b border-dashed py-2 border-gray-300'>Sub-Total: <span className='font-bold'>TK {totalProductPrice}</span></h1>
+                        <h1 className='description text-xl font-medium border-b border-dashed py-2 border-gray-300'>Delivery Charge: TK 80</h1>
                     </div>
+                    {
+                        totalProductPrice > 0 && <div>
+                            <div className='bgColor mt-2'>
+                                <h1 className='text-green-600 font-medium heading text-center'>Payable Total: <span className='text-red-600'>TK {totalProductPrice + 80}</span></h1>
+                            </div>
+
+                            <div className='mt-2'>
+                                <button className='btn btn-secondary w-full'>Go For Order</button>
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </Container>
