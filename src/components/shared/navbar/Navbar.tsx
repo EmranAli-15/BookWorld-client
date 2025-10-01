@@ -11,7 +11,7 @@ export default async function Navbar() {
     const [categories, writers] = await Promise.all([getCategory, getWriter]);
 
     return (
-        <div>
+        <div className='sticky h-fit top-0 z-20 bg-white'>
 
             <NavForMobile categories={categories} writers={writers}></NavForMobile>
 

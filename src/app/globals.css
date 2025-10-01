@@ -20,3 +20,7 @@ body {
 .description {
   color: #62748e;
 }
+
+.bgColor {
+  @apply bg-linear-to-bl from-orange-50 to-green-50 p-2
+}

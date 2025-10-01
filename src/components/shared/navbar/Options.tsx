@@ -25,7 +25,6 @@ export default function Options() {
         const fn = async () => {
             if (user) {
                 const data = await dispatch(booksApi.endpoints.getMyCart.initiate(user?.userId)).unwrap();
-                setMyCart(data.data?.length);
                 dispatch(setPreCart(data.data?.length));
             }
             else {
