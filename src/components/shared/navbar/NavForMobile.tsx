@@ -9,6 +9,7 @@ import logo from "../../../../public/logo.png"
 import Image from 'next/image'
 import { CloseIcon, MenuIcon } from '@/icons/Icons';
 import Options from './Options'
+import Link from 'next/link'
 
 
 export default function NavForMobile({ categories, writers }: { categories: any, writers: any }) {
@@ -42,13 +43,14 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                         <ul>
                             {
                                 categories.data.map((category: any) => (
-                                    <li
+                                    <Link 
+                                    href={`/categoryBooks/${category._id}`}
                                         key={category._id}
                                         className='flex items-center gap-x-1'
                                     >
                                         <span>&#9679;</span>
                                         {category.name}
-                                    </li>
+                                    </Link>
                                 ))
                             }
                         </ul>

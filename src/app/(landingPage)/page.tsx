@@ -20,7 +20,7 @@ export default async function Home() {
           {
             category.data.map((category: any) => (
               <Link
-                href=""
+                href={`/categoryBooks/${category._id}`}
                 key={category._id}
               >
                 <p className="w-full hover:text-blue-500">{category.name}</p>
