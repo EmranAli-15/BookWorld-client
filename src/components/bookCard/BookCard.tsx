@@ -22,7 +22,7 @@ export default function BookCard({ book }: { book: TBook }) {
                 <p className='line-clamp-1 text-sm'>{book.writer.name}</p>
                 <p>{book.rating} ({Math.floor(Math.random() * 5) + 1})</p>
                 <p className='font-medium text-lg'><span className='text-orange-500'>TK </span>{book.price}</p>
-                <AddCardButton id={book._id}></AddCardButton>
+                <AddCardButton book={book}></AddCardButton>
             </div>
         </div>
     )

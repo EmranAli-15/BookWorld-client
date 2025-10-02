@@ -7,16 +7,23 @@ import { useAppDispatch } from '@/redux/hooks';
 import { addToLocalCart } from '@/utils/localCart';
 import React from 'react'
 
-export default function AddCardButton({ id }: { id: string }) {
+export default function AddCardButton({ book }: { book: any }) {
     const dispatch = useAppDispatch();
     const { user } = useUser();
 
     const [addCart] = useAddToCartMutation()
 
     const addToCart = () => {
-        const data = { userId: user?.userId, productId: id }
+        const data = { userId: user?.userId, productId: book._id }
+        const forLocalCart = {
+            _id: book._id,
+            name: book.name,
+            image: book.image,
+            price: book.price,
+            quantity: book.quantity,
+        }
         if (!user) {
-            addToLocalCart({ productId: id });
+            addToLocalCart({forLocalCart});
             dispatch(addToMyCart());
         }
         else {

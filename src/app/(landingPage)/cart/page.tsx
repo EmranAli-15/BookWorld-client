@@ -2,9 +2,10 @@
 
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
-import { booksApi } from '@/redux/features/bookApi';
+import { booksApi, useGetLocalCartBooksMutation } from '@/redux/features/bookApi';
 import { removeOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
+import { getLocalCartData } from '@/utils/localCart';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
@@ -18,57 +19,63 @@ export default function Cart() {
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
 
-    const handleSelection = ({ checked, product }: { checked: boolean, product: any }) => {
-        const details = { userId: user.userId, productId: product._id, price: product.price };
+    const handleSelection = ({ checked, book }: { checked: boolean, book: any }) => {
+        const details = { userId: user?.userId, productId: book._id, price: book.price };
         if (checked) {
-            setTotalProductPrice(totalProductPrice + product.price);
+            setTotalProductPrice(totalProductPrice + book.price);
             dispatch(setOrderDetails(details));
         } else {
-            setTotalProductPrice(totalProductPrice - product.price);
+            setTotalProductPrice(totalProductPrice - book.price);
             dispatch(removeOrderDetails(details));
         }
     }
 
     useEffect(() => {
-        const fn = async () => {
+        const getMyCart = async () => {
             const data = await dispatch(booksApi.endpoints.getMyCart.initiate(user.userId)).unwrap();
-            setMyCart(data.data);
+            const simpleForm = data.data.map((data: any) => ({
+                _id: data.productId._id,
+                name: data.productId.name,
+                image: data.productId.image,
+                price: data.productId.price,
+                quantity: data.productId.quantity,
+            }));
+            setMyCart(simpleForm);
             setLoading(false)
-        }
+        };
 
         if (user?.userId) {
-            fn();
+            getMyCart();
         }
         else {
-            const cart = localStorage.getItem("cart");
-            if (cart) {
-                const data = JSON.parse(cart);
-                setMyCart(data);
-            }
+            const cart = getLocalCartData();
+            setMyCart(cart)
+            setLoading(false)
         };
     }, [user])
+
 
     let content = null;
 
     if (!loading && myCart) {
-        content = myCart.map((book: any) => {
+        content = myCart.map((book: any, index: number) => {
             return (
-                <div className='flex justify-between border-b-2 border-b-amber-100 p-2 bgColor' key={book._id}>
+                <div className='flex justify-between border-b-2 border-b-amber-100 p-2 bgColor' key={index}>
                     <div className='flex items-center gap-x-1'>
                         <div>
-                            <input onChange={(e) => handleSelection({ checked: e.target.checked, product: book.productId })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
+                            <input onChange={(e) => handleSelection({ checked: e.target.checked, book })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
                         </div>
                         <div className='w-[110px]'>
-                            <Image width={90} height={130} src="https://rokbucket.rokomari.io/ProductNew20190903/130X186/Bishad_Shindu-Mir_Mosharrof_Hossain-f591a-277781.jpg" alt={book.productId.name}></Image>
+                            <Image width={90} height={130} src="https://rokbucket.rokomari.io/ProductNew20190903/130X186/Bishad_Shindu-Mir_Mosharrof_Hossain-f591a-277781.jpg" alt={book.name}></Image>
                         </div>
                     </div>
                     <div className='flex items-center justify-between w-full'>
                         <div>
-                            <h1 className='text-lg mb-1'>{book.productId.name}</h1>
-                            <p>{book.productId.quantity} pcs available</p>
+                            <h1 className='text-lg mb-1'>{book.name}</h1>
+                            <p>{book.quantity} pcs available</p>
                         </div>
                         <div>
-                            <h1 className='text-xl font-medium text-red-600'>TK {book.productId.price}</h1>
+                            <h1 className='text-xl font-medium text-red-600'>TK {book.price}</h1>
                         </div>
                     </div>
                 </div>
