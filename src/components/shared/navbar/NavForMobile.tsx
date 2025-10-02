@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './navbar.module.css'
 
@@ -10,11 +10,35 @@ import Image from 'next/image'
 import { CloseIcon, MenuIcon } from '@/icons/Icons';
 import Options from './Options'
 import Link from 'next/link'
+import { useAppDispatch } from '@/redux/hooks'
+import { booksApi } from '@/redux/features/bookApi'
+import { debounce } from '@/utils/debounce'
 
 
 export default function NavForMobile({ categories, writers }: { categories: any, writers: any }) {
+    const dispatch = useAppDispatch();
 
+    const [data, setData] = useState([]);
+    const [text, setText] = useState("");
     const [drawer, setDrawer] = useState(false);
+
+
+    const handleSearch = () => {
+        const fetchData = async () => {
+            if (text) {
+                const res = await dispatch(booksApi.endpoints.searchBook.initiate({ text })).unwrap();
+                setData(res.data);
+            } else {
+                setData([]);
+            }
+        };
+        fetchData();
+    };
+
+    useEffect(() => {
+        debounce(handleSearch);
+    }, [text])
+
 
     return (
         <div>
@@ -43,8 +67,8 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                         <ul>
                             {
                                 categories.data.map((category: any) => (
-                                    <Link 
-                                    href={`/categoryBooks/${category._id}`}
+                                    <Link
+                                        href={`/categoryBooks/${category._id}`}
                                         key={category._id}
                                         className='flex items-center gap-x-1'
                                     >
@@ -79,14 +103,32 @@ export default function NavForMobile({ categories, writers }: { categories: any,
             <div className="block lg:hidden py-1 bg-green-50">
                 <form className="w-full flex justify-center">
                     <input
+                        onChange={(e) => setText(e.target.value)}
                         className="border-[1px] outline-0 border-orange-400 w-[90%] px-3 py-2 rounded-3xl"
-                        placeholder="search by book or author."
+                        placeholder="search by book name or author."
                         required
                         type="search"
                         name="search"
                     />
                 </form>
             </div>
+
+            <div className='relative'>
+                {
+                    data.length > 0 && <div className='w-full shadow-2xl z-50 absolute bgColor'>
+                        {
+                            data.map((book: any) => {
+                                return <div className='mt-3 hover:bg-white cursor-pointer p-1' key={book._id}>
+
+                                    <h1>{book.name}</h1>
+                                    <small className='text-[12px] description ml-2'>- {book.writerData.name}</small>
+                                </div>
+                            })
+                        }
+                    </div>
+                }
+            </div>
+
         </div>
     )
 }

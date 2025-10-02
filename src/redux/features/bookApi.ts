@@ -18,6 +18,14 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        searchBook: build.query({
+            query: ({ text }) => (
+                {
+                    url: `/book/searchBook?text=${text}`,
+                    method: 'GET',
+                }
+            )
+        }),
         getMyCart: build.query({
             query: (id) => (
                 {
