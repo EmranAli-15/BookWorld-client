@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 export default function Cart() {
     const dispatch = useAppDispatch();
     const { user } = useUser();
-    const [myCart, setMyCart] = useState<null | []>(null);
+    const [myCart, setMyCart] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
@@ -89,7 +89,7 @@ export default function Cart() {
             <div className='flex flex-col-reverse lg:flex-row gap-x-5 my-5'>
                 <div className='lg:w-[60%] mt-2 lg:mt-0'>
                     <div>
-                        {!myCart ? <div role="alert" className="alert alert-warning alert-soft">
+                        {myCart.length == 0 ? <div role="alert" className="alert alert-warning alert-soft">
                             <span>No product in your cart.</span>
                         </div> :
                             <div>

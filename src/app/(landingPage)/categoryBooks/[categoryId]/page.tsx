@@ -5,7 +5,7 @@ import Container from '@/components/Container'
 import { booksApi } from '@/redux/features/bookApi'
 import { useAppDispatch } from '@/redux/hooks'
 import Image from 'next/image'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function page({ params }: { params: Promise<{ categoryId: string }> }) {
     const dispatch = useAppDispatch();
@@ -14,6 +14,10 @@ export default function page({ params }: { params: Promise<{ categoryId: string 
     const [noMoreBooks, setNoMoreBooks] = useState(false);
     const [books, setBooks] = useState<any>([]);
 
+
+    useEffect(() => {
+        document.title = books[0]?.category?.name || "Book World";
+    }, [books]);
 
     useEffect(() => {
 
