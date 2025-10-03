@@ -10,6 +10,14 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        getSingleBook: build.query({
+            query: ({ id }) => (
+                {
+                    url: `/book/getSingleBook/${id}`,
+                    method: 'GET',
+                }
+            )
+        }),
         getCategoryBooks: build.query({
             query: ({ id, page }) => (
                 {
@@ -60,5 +68,6 @@ export const {
     useGetMyCartQuery,
     useAddToCartMutation,
     useGetLocalCartBooksMutation,
-    useGetCategoryBooksQuery
+    useGetCategoryBooksQuery,
+    useGetSingleBookQuery
 } = booksApi;

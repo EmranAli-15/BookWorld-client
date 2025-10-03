@@ -1,4 +1,5 @@
 "use client"
+import Cookies from 'js-cookie'
 
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider'
@@ -7,9 +8,12 @@ import { useGetUserQuery, useUpdataUserMutation } from '@/redux/features/userApi
 import { uploadImage } from '@/utils/uploadImage'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function page() {
-  const { user } = useUser();
+  const { user, setLoading } = useUser();
+  const router = useRouter();
+
   const [error, setError] = useState("");
 
   const [name, setName] = useState("");
@@ -39,9 +43,13 @@ export default function page() {
     }
 
     const finalData = { id: user?.userId, data }
-
     updateUserFn(finalData);
+  };
 
+  const handleLogout = () => {
+    router.push("/");
+    Cookies.remove("token");
+    setLoading(true);
   }
 
 
@@ -72,15 +80,24 @@ export default function page() {
   }
   else if (!isLoading && !isError && isSuccess) {
     content = <div>
-      <div className='lg:flex items-center'>
-        <div className='lg:w-1/2'>
-          {
-            image ? <Image height={200} width={200} src={image} alt={name}></Image> :
-              <UserIcon w={200}></UserIcon>
-          }
+      <div className='lg:flex gap-x-2'>
+        <div className='lg:w-1/2 flex lg:flex-col justify-between'>
+          <div>
+            {
+              image ? <Image height={200} width={200} src={image} alt={name}></Image> :
+                <UserIcon w={200}></UserIcon>
+            }
 
-          <label className='cursor-pointer hover:text-blue-700' htmlFor="inputImage">Change Image</label>
-          <input onChange={(e) => handlePhoto(e.target.files![0])} className='hidden' type="file" id="inputImage" />
+            <label className='cursor-pointer hover:text-blue-700' htmlFor="inputImage">Change Image</label>
+            <input onChange={(e) => handlePhoto(e.target.files![0])} className='hidden' type="file" id="inputImage" />
+          </div>
+          <div>
+            <button
+              onClick={() => handleLogout()}
+              className="btn btn-soft btn-warning">
+              Log Out
+            </button>
+          </div>
         </div>
         <div className='lg:w-1/2 mt-5 lg:mt-0'>
           <label htmlFor="">Name:</label>

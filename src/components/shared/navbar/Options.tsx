@@ -45,7 +45,7 @@ export default function Options() {
             </div>
             <div className="flex items-center gap-x-1 w-full">
                 {
-                    !user ? <Link href="/login">Sign in</Link> : <Link href="/user"><UserIcon w={25}></UserIcon></Link>
+                    !user ? <Link href="/login">Sign in</Link> : <Link href={`${user.role == "user" ? "/user" : user.role == "admin" ? "/admin" : "/"}`}><UserIcon w={25}></UserIcon></Link>
                 }
             </div>
         </div>
