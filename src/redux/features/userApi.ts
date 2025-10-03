@@ -9,7 +9,15 @@ export const booksApi = baseApi.injectEndpoints({
             }),
             providesTags: ["getUser"]
         }),
+        updataUser: build.mutation({
+            query: ({ id, data }) => ({
+                url: `/user/updateUser/${id}`,
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ["getUser"]
+        }),
     }),
 })
 
-export const { useGetUserQuery } = booksApi;
+export const { useGetUserQuery, useUpdataUserMutation } = booksApi;
