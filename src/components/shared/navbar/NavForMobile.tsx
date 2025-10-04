@@ -83,13 +83,13 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                         <ul>
                             {
                                 writers.data.map((writer: any) => (
-                                    <li
+                                    <Link href={`/writerBooks/${writer._id}`}
                                         key={writer._id}
                                         className='flex items-center gap-x-1'
                                     >
                                         <span>&#9679;</span>
                                         {writer.name}
-                                    </li>
+                                    </Link>
                                 ))
                             }
                         </ul>

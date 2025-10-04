@@ -65,9 +65,9 @@ export default function Cart() {
                         <div>
                             <input onChange={(e) => handleSelection({ checked: e.target.checked, book })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
                         </div>
-                        <div className='w-[110px]'>
+                        <Link href={`/bookDetails/${book._id}`} className='w-[110px]'>
                             <Image width={90} height={130} src={book?.image} alt={book.name}></Image>
-                        </div>
+                        </Link>
                     </div>
                     <div className='flex items-center justify-between w-full'>
                         <div>

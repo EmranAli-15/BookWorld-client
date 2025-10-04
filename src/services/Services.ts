@@ -15,6 +15,16 @@ export const getSingleBook = async (id: string) => {
     return result.json();
 };
 
+export const getBookByWriter = async (id: string) => {
+    const result = await fetch(`${baseURL}/book/getWriterBook/${id}`);
+
+    if (!result.ok) {
+        throw new Error("Writer not found.");
+    };
+
+    return result.json();
+};
+
 export const getAllCategory = async () => {
     const result = await fetch(`${baseURL}/category/getCategory`);
 

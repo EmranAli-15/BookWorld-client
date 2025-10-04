@@ -56,7 +56,7 @@ export default async function Home() {
               {
                 writer.data.map((category: any) => (
                   <Link
-                    href=""
+                    href={`/writerBooks/${category._id}`}
                     key={category._id}
                   >
                     <p className="w-full line-clamp-1 hover:text-blue-500">{category.name}</p>
