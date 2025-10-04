@@ -66,7 +66,7 @@ export default function Cart() {
                             <input onChange={(e) => handleSelection({ checked: e.target.checked, book })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
                         </div>
                         <div className='w-[110px]'>
-                            <Image width={90} height={130} src="https://rokbucket.rokomari.io/ProductNew20190903/130X186/Bishad_Shindu-Mir_Mosharrof_Hossain-f591a-277781.jpg" alt={book.name}></Image>
+                            <Image width={90} height={130} src={book?.image} alt={book.name}></Image>
                         </div>
                     </div>
                     <div className='flex items-center justify-between w-full'>

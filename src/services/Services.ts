@@ -1,6 +1,20 @@
 
 const baseURL = "http://localhost:5000/api";
 
+
+
+
+
+export const getSingleBook = async (id: string) => {
+    const result = await fetch(`${baseURL}/book/getSingleBook/${id}`);
+
+    if (!result.ok) {
+        throw new Error("Book not found.");
+    };
+
+    return result.json();
+};
+
 export const getAllCategory = async () => {
     const result = await fetch(`${baseURL}/category/getCategory`);
 

@@ -37,7 +37,10 @@ export async function middleware(request: NextRequest) {
         const userPath = userRoutes.includes(pathname);
         const adminPath = adminRoutes.includes(pathname);
         const authPath = authRoutes.includes(pathname);
-        if (userPath || adminPath || authPath) {
+        if (authPath) {
+            return NextResponse.redirect(new URL("/login", request.url))
+        }
+        else if (userPath || adminPath) {
             return NextResponse.redirect(new URL("/", request.url))
         }
     }
