@@ -23,6 +23,9 @@ const myCart = createSlice({
         setOrderDetails: (state, actions) => {
             state.orderDetails.push(actions.payload);
         },
+        resetOrderDetails: (state) => {
+            state.orderDetails = [];
+        },
         removeOrderDetails: (state, actions) => {
             const filtered = state.orderDetails.filter(p => p.productId !== actions.payload.productId);
             state.orderDetails = filtered;
@@ -31,4 +34,4 @@ const myCart = createSlice({
 });
 
 export default myCart;
-export const { addToMyCart, setPreCart, setOrderDetails, removeOrderDetails } = myCart.actions;
+export const { addToMyCart, setPreCart, setOrderDetails, removeOrderDetails, resetOrderDetails } = myCart.actions;

@@ -3,10 +3,9 @@
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
 import { booksApi } from '@/redux/features/bookApi';
-import { removeOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
+import { removeOrderDetails, resetOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { getLocalCartData } from '@/utils/localCart';
-import { Span } from 'next/dist/trace';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
@@ -14,35 +13,58 @@ import React, { useEffect, useState } from 'react'
 export default function Cart() {
     const dispatch = useAppDispatch();
     const { user } = useUser();
-    const [myCart, setMyCart] = useState([]);
+    const [myCart, setMyCart] = useState<any>([]);
     const [loading, setLoading] = useState(true);
-    const [myQuantity, setMyQuantity] = useState<{ id: string, quantity: number }[] | any[]>([]);
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
 
     const handleSelection = ({ checked, book }: { checked: boolean, book: any }) => {
-        const details = { userId: user?.userId, productId: book._id, price: book.price };
+        const f = myCart.find((c: any) => c._id == book._id).isChecked = checked;
+        const index = myCart.indexOf(f);
+        let updatedCart = myCart;
+        updatedCart[index] = f;
+        setMyCart(updatedCart);
+
+        const details = { userId: user?.userId, productId: book._id, price: book.needPrice };
         if (checked) {
-            setTotalProductPrice(totalProductPrice + book.price);
+            setTotalProductPrice(totalProductPrice + book.needPrice);
             dispatch(setOrderDetails(details));
         } else {
-            setTotalProductPrice(totalProductPrice - book.price);
+            setTotalProductPrice(totalProductPrice - book.needPrice);
             dispatch(removeOrderDetails(details));
         }
     };
 
-    const handleMyQuantity = ({ id, type }: { id: string, type: number }) => {
-        let get = myQuantity.find(q => q.id == id);
-        if (get) {
-            if (type == 1) get.quantity++;
-            else get.quantity--;
-            myQuantity[get.id] = get;
-        }
-        else {
-            setMyQuantity([...myQuantity, { id, quantity: 1 }])
+
+    const updateQuantity = ({ id, newQ }: { id: string, newQ: number }) => {
+        setMyCart((prevItems: any) =>
+            prevItems.map((item: any) =>
+                item._id === id ? { ...item, need: newQ, needPrice: item.price * newQ } : item
+            )
+        );
+    };
+
+    const incrementQuantity = (id: string) => {
+        const f = myCart.find((item: any) => (item._id === id))
+        updateQuantity({ id, newQ: f.need + 1 });
+        if (f.isChecked) setTotalProductPrice(totalProductPrice + f.price)
+    };
+
+    const decrementQuantity = (id: string) => {
+        const f = myCart.find((item: any) => (item._id === id))
+        if (f.need > 1) {
+            updateQuantity({ id, newQ: f.need - 1 });
+            if (f.isChecked) setTotalProductPrice(totalProductPrice - f.price)
         }
     };
+
+
+    useEffect(() => {
+        const f = myCart.find((c: any) => c.isChecked);
+        if (!f)
+            dispatch(resetOrderDetails());
+    }, [])
 
     useEffect(() => {
         const getMyCart = async () => {
@@ -53,6 +75,9 @@ export default function Cart() {
                 image: data.productId.image,
                 price: data.productId.price,
                 quantity: data.productId.quantity,
+                need: 1,
+                needPrice: data.productId.price,
+                isChecked: false,
             }));
             setMyCart(simpleForm);
             setLoading(false)
@@ -63,7 +88,15 @@ export default function Cart() {
         }
         else {
             const cart = getLocalCartData();
-            setMyCart(cart)
+            const addNeedToCart = cart.map((c: any) => {
+                return ({
+                    ...c,
+                    need: 1,
+                    needPrice: c.price,
+                    isChecked: false,
+                })
+            })
+            setMyCart(addNeedToCart)
             setLoading(false)
         };
     }, [user]);
@@ -91,13 +124,15 @@ export default function Cart() {
                             <h1 className='text-lg mb-1'>{book.name}</h1>
                             <p>{book.quantity} pcs available</p>
                             <div className='flex items-center'>
-                                <button onClick={() => handleMyQuantity({ id: book._id, type: 0 })} className="btn p-2 size-6">-</button>
-                                <p className='p-2'>{myQuantity.find(q => q.id == book._id ? <span>{q.quantity}</span> : <span>1</span>)}</p>
-                                <button onClick={() => handleMyQuantity({ id: book._id, type: 1 })} className="btn p-2 size-6">+</button>
+
+                                <button onClick={() => decrementQuantity(book._id)} className='btn p-3 size-6'>-</button>
+                                <p className='p-2' >{book.need}</p>
+                                <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
+
                             </div>
                         </div>
                         <div>
-                            <h1 className='text-xl font-medium text-red-600'>TK {book.price}</h1>
+                            <h1 className='text-xl font-medium text-red-600'>TK {book.needPrice}</h1>
                         </div>
                     </div>
                 </div>
@@ -140,7 +175,7 @@ export default function Cart() {
                         <h1 className='description text-xl font-medium border-b border-dashed py-2 border-gray-300'>Delivery Charge: TK 80</h1>
                     </div>
                     {
-                        totalProductPrice > 0 && <div>
+                        totalProductPrice > 80 && <div>
                             <div className='bgColor mt-2'>
                                 <h1 className='text-green-600 font-medium heading text-center'>Payable Total: <span className='text-red-600'>TK {totalProductPrice + 80}</span></h1>
                             </div>
