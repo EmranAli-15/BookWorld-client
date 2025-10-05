@@ -1,16 +1,22 @@
-import AddCardButton from '@/components/bookCard/AddCardButton';
 import BookCard from '@/components/bookCard/BookCard';
 import Container from '@/components/Container';
-import { getBookByWriter, getSingleBook } from '@/services/Services'
-import Image from 'next/image';
-import Link from 'next/link';
+import { getBookByWriter } from '@/services/Services'
 import React from 'react'
+
+export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
+    const { id } = (await params)
+    const { data } = await getBookByWriter(id);
+
+    return {
+        title: data[0].writer.name,
+        description: data[0].writer.summary
+    }
+}
 
 export default async function page({ params }: { params: Promise<{ id: string }> }) {
 
     const { id } = (await params)
     const { data } = await getBookByWriter(id);
-    console.log(data)
 
     return (
         <div className='my-5'>

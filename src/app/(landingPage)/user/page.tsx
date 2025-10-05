@@ -66,7 +66,11 @@ export default function page() {
       setAddress(data.data.address || "")
       setImage(data.data.image)
     }
-  }, [isError, isSuccess])
+  }, [isError, isSuccess]);
+
+  useEffect(() => {
+    document.title = "My Profile"
+  }, [])
 
 
   let content = null;

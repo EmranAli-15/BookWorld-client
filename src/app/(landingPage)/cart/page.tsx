@@ -2,10 +2,11 @@
 
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
-import { booksApi, useGetLocalCartBooksMutation } from '@/redux/features/bookApi';
+import { booksApi } from '@/redux/features/bookApi';
 import { removeOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { getLocalCartData } from '@/utils/localCart';
+import { Span } from 'next/dist/trace';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
@@ -15,6 +16,7 @@ export default function Cart() {
     const { user } = useUser();
     const [myCart, setMyCart] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [myQuantity, setMyQuantity] = useState<{ id: string, quantity: number }[] | any[]>([]);
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
@@ -28,7 +30,19 @@ export default function Cart() {
             setTotalProductPrice(totalProductPrice - book.price);
             dispatch(removeOrderDetails(details));
         }
-    }
+    };
+
+    const handleMyQuantity = ({ id, type }: { id: string, type: number }) => {
+        let get = myQuantity.find(q => q.id == id);
+        if (get) {
+            if (type == 1) get.quantity++;
+            else get.quantity--;
+            myQuantity[get.id] = get;
+        }
+        else {
+            setMyQuantity([...myQuantity, { id, quantity: 1 }])
+        }
+    };
 
     useEffect(() => {
         const getMyCart = async () => {
@@ -52,7 +66,10 @@ export default function Cart() {
             setMyCart(cart)
             setLoading(false)
         };
-    }, [user])
+    }, [user]);
+    useEffect(() => {
+        document.title = "My Cart"
+    }, [])
 
 
     let content = null;
@@ -73,6 +90,11 @@ export default function Cart() {
                         <div>
                             <h1 className='text-lg mb-1'>{book.name}</h1>
                             <p>{book.quantity} pcs available</p>
+                            <div className='flex items-center'>
+                                <button onClick={() => handleMyQuantity({ id: book._id, type: 0 })} className="btn p-2 size-6">-</button>
+                                <p className='p-2'>{myQuantity.find(q => q.id == book._id ? <span>{q.quantity}</span> : <span>1</span>)}</p>
+                                <button onClick={() => handleMyQuantity({ id: book._id, type: 1 })} className="btn p-2 size-6">+</button>
+                            </div>
                         </div>
                         <div>
                             <h1 className='text-xl font-medium text-red-600'>TK {book.price}</h1>

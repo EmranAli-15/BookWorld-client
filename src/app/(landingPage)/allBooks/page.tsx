@@ -4,8 +4,7 @@ import BookCard from '@/components/bookCard/BookCard'
 import Container from '@/components/Container'
 import { booksApi } from '@/redux/features/bookApi'
 import { useAppDispatch } from '@/redux/hooks'
-import Image from 'next/image'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function page() {
     const dispatch = useAppDispatch();

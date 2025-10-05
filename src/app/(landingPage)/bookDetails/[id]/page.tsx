@@ -4,6 +4,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
+
+export const generateMetadata = async ({ params }: { params: Promise<{ id: string }> }) => {
+    const { id } = (await params)
+    const { data } = await getSingleBook(id);
+
+    return {
+        title: data.name,
+        description: data.summary
+    }
+}
+
 export default async function page({ params }: { params: Promise<{ id: string }> }) {
 
     const { id } = (await params)
@@ -19,7 +30,7 @@ export default async function page({ params }: { params: Promise<{ id: string }>
                 </div>
                 <div className='lg:w-[65%]'>
                     <h1 className='text-2xl font-medium my-2'>{data.name}</h1>
-                    <p>By: <span className='text-blue-600'>{data.writer.name}</span></p>
+                    <p>By: <Link href={`/writerBooks/${data.writer._id}`} className='text-blue-600'>{data.writer.name}</Link></p>
                     <p>Category: <Link href={`/categoryBooks/${data.category._id}`} className='text-blue-600'>{data.category.name}</Link></p>
                     <p>***** &nbsp;&nbsp;&nbsp; {data.rating}</p>
                     <p>{data.summary.length > 130 ? data.summary.slice(0, 130) : data.summary} <a href='#more' className='text-blue-600'>more</a></p>
