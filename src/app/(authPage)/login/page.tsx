@@ -1,6 +1,7 @@
 "use client"
 
 import Container from '@/components/Container'
+import GoogleAuth from '@/components/googleAuth/GoogleAuth';
 import { useUser } from '@/contextProvider/ContextProvider';
 import { useUserLoginMutation } from '@/redux/features/authApi';
 import Link from 'next/link';
@@ -28,7 +29,7 @@ export default function page() {
 
 
     useEffect(() => {
-        if (isSuccess){
+        if (isSuccess) {
             router.push("/");
             setLoading(true);
         }
@@ -78,6 +79,7 @@ export default function page() {
                                         }
                                     </button>
                                 </form>
+                                <GoogleAuth></GoogleAuth>
                             </div>
                         </div>
                     </div>
