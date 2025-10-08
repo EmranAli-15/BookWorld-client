@@ -9,6 +9,7 @@ import { getLocalCartData } from '@/utils/localCart';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import CartSkleton from './CartSkleton';
 
 export default function Cart() {
     const dispatch = useAppDispatch();
@@ -107,7 +108,16 @@ export default function Cart() {
 
     let content = null;
 
-    if (!loading && myCart) {
+
+    if (loading) {
+        content = <CartSkleton></CartSkleton>
+    }
+    else if (!loading && myCart.length == 0) {
+        content = <div role="alert" className="alert alert-warning alert-soft">
+            <span>No product in your cart.</span>
+        </div>
+    }
+    else if (!loading && myCart.length > 0) {
         content = myCart.map((book: any, index: number) => {
             return (
                 <div className='flex justify-between border-b-2 border-b-amber-100 p-2 bgColor' key={index}>
@@ -146,14 +156,8 @@ export default function Cart() {
             <div className='flex flex-col-reverse lg:flex-row gap-x-5 my-5'>
                 <div className='lg:w-[60%] mt-2 lg:mt-0'>
                     <div>
-                        {myCart.length == 0 ? <div role="alert" className="alert alert-warning alert-soft">
-                            <span>No product in your cart.</span>
-                        </div> :
-                            <div>
-                                {
-                                    content
-                                }
-                            </div>
+                        {
+                            content
                         }
                     </div>
                 </div>
@@ -162,11 +166,16 @@ export default function Cart() {
                     <div className='bgColor p-2'>
                         <h1 className='heading text-center border-b border-gray-300'>Shipping Address</h1>
                         {
-                            user && <div>
-                                <p>{user.name}</p>
-                                <p>{user.phone}</p>
-                                <p>{user.address}</p>
-                            </div>
+                            loading ? <div className='w-full mt-1'>
+                                <p className='h-5 rounded w-[70%] bg-slate-200'></p>
+                                <p className='h-5 rounded my-2 w-[50%] bg-slate-200'></p>
+                                <p className='h-5 rounded w-[80%] bg-slate-200'></p>
+                            </div> :
+                                user && <div>
+                                    <p>{user.name}</p>
+                                    <p>{user.phone}</p>
+                                    <p>{user.address}</p>
+                                </div>
                         }
                     </div>
                     <div className='bgColor p-2 mt-2'>

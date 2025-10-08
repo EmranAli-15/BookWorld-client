@@ -47,7 +47,7 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                     <button onClick={() => setDrawer(true)}>
                         <MenuIcon></MenuIcon>
                     </button>
-                    <Image width={40} src={logo} alt='BW'></Image>
+                    <Link href="/"><Image width={40} src={logo} alt='BW'></Image></Link>
                 </div>
 
                 <div onClick={() => setDrawer(false)} className={`${drawer ? 'h-[100dvh] w-[100vw] absolute bg-[#00000040] z-10 top-0 left-0' : ''}`}></div>
@@ -118,11 +118,12 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                     data.length > 0 && <div className='w-full shadow-2xl z-50 absolute bgColor'>
                         {
                             data.map((book: any) => {
-                                return <div className='mt-3 hover:bg-white cursor-pointer p-1' key={book._id}>
-
-                                    <h1>{book.name}</h1>
-                                    <small className='text-[12px] description ml-2'>- {book.writerData.name}</small>
-                                </div>
+                                return <Link href={`/bookDetails/${book._id}`} key={book._id}>
+                                    <div onClick={() => setData([])} className='mt-3 hover:bg-white cursor-pointer p-1'>
+                                        <h1>{book.name}</h1>
+                                        <small className='text-[12px] description ml-2'>- {book.writerData.name}</small>
+                                    </div>
+                                </Link>
                             })
                         }
                     </div>

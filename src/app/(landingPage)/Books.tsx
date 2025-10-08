@@ -1,7 +1,6 @@
 import BookCard from '@/components/bookCard/BookCard'
 import Container from '@/components/Container'
 import { getAllBooks, getCategoryBooks } from '@/services/Services'
-import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -9,6 +8,7 @@ type TBook = {
     _id: string,
     name: string,
     image: string,
+    quantity: number,
     rating: number,
     price: number,
     writer: { name: string }
