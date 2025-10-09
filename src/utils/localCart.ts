@@ -1,3 +1,5 @@
+import { removeFromMyCart } from "@/redux/features/bookSlice";
+
 export const getLocalCart = () => {
     const getCart = localStorage.getItem("cart");
     let cart = [];
@@ -28,6 +30,15 @@ export const addToLocalCart = ({ forLocalCart }: { forLocalCart: any }) => {
 
     localStorage.setItem("cart", JSON.stringify(cart));
     return isAdded
+};
+
+export const deleteFromLocalCart = (id: string) => {
+    const getCart = localStorage.getItem("cart");
+    if(getCart){
+        const cart = JSON.parse(getCart);
+        const updatedCart = cart.filter((p:any) => p._id !== id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
 }
 
 export const getLocalCartData = () => {

@@ -3,19 +3,21 @@
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
 import { booksApi } from '@/redux/features/bookApi';
-import { removeOrderDetails, resetOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
+import { removeFromMyCart, removeOrderDetails, resetOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
-import { getLocalCartData } from '@/utils/localCart';
+import { deleteFromLocalCart, getLocalCartData } from '@/utils/localCart';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import CartSkleton from './CartSkleton';
+import { DeleteIcon } from '@/icons/Icons';
 
 export default function Cart() {
     const dispatch = useAppDispatch();
     const { user } = useUser();
     const [myCart, setMyCart] = useState<any>([]);
     const [loading, setLoading] = useState(true);
+    const [reloadForRemove, setReloadForRemove] = useState(false);
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
@@ -61,6 +63,13 @@ export default function Cart() {
     };
 
 
+    const deleteFromCart = (id: string) => {
+        deleteFromLocalCart(id);
+        dispatch(removeFromMyCart());
+        setReloadForRemove(!reloadForRemove)
+    }
+
+
     useEffect(() => {
         const f = myCart.find((c: any) => c.isChecked);
         if (!f)
@@ -100,10 +109,11 @@ export default function Cart() {
             setMyCart(addNeedToCart)
             setLoading(false)
         };
-    }, [user]);
+    }, [user, reloadForRemove]);
+
     useEffect(() => {
         document.title = "My Cart"
-    }, [])
+    }, []);
 
 
     let content = null;
@@ -130,18 +140,24 @@ export default function Cart() {
                         </Link>
                     </div>
                     <div className='flex items-center justify-between w-full'>
-                        <div>
-                            <h1 className='text-lg mb-1'>{book.name}</h1>
-                            <p>{book.quantity} pcs available</p>
-                            <div className='flex items-center'>
-
-                                <button onClick={() => decrementQuantity(book._id)} className='btn p-3 size-6'>-</button>
-                                <p className='p-2' >{book.need}</p>
-                                <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
-
+                        <div className='lg:w-[70%]'>
+                            <h1 className='text-lg line-clamp-1'>{book.name}</h1>
+                            <p className='my-1'>{book.quantity} pcs available</p>
+                            <div className='block lg:hidden'>
+                                <h1 className='text-xl font-medium'>TK <span className='text-red-600'>{book.needPrice}</span></h1>
                             </div>
+                            <button
+                                onClick={() => deleteFromCart(book._id)}
+                                className='hover:cursor-pointer mt-2'>
+                                <DeleteIcon></DeleteIcon>
+                            </button>
                         </div>
-                        <div>
+                        <div className='flex flex-col-reverse lg:flex-row items-center'>
+                            <button onClick={() => decrementQuantity(book._id)} className='btn p-3 size-6'>-</button>
+                            <p className='p-2' >{book.need}</p>
+                            <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
+                        </div>
+                        <div className='hidden lg:block'>
                             <h1 className='text-xl font-medium text-red-600'>TK {book.needPrice}</h1>
                         </div>
                     </div>

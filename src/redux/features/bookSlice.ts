@@ -17,6 +17,9 @@ const myCart = createSlice({
         addToMyCart: (state) => {
             state.cart = state.cart + 1;
         },
+        removeFromMyCart: (state) => {
+            state.cart = state.cart - 1;
+        },
         setPreCart: (state, actions) => {
             state.cart = actions.payload;
         },
@@ -34,4 +37,4 @@ const myCart = createSlice({
 });
 
 export default myCart;
-export const { addToMyCart, setPreCart, setOrderDetails, removeOrderDetails, resetOrderDetails } = myCart.actions;
+export const { addToMyCart, setPreCart, setOrderDetails, removeOrderDetails, resetOrderDetails, removeFromMyCart } = myCart.actions;
