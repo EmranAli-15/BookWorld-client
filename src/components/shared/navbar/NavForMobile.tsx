@@ -68,6 +68,7 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                             {
                                 categories.data.map((category: any) => (
                                     <Link
+                                        onClick={() => setDrawer(false)}
                                         href={`/categoryBooks/${category._id}`}
                                         key={category._id}
                                         className='flex items-center gap-x-1'
@@ -83,7 +84,9 @@ export default function NavForMobile({ categories, writers }: { categories: any,
                         <ul>
                             {
                                 writers.data.map((writer: any) => (
-                                    <Link href={`/writerBooks/${writer._id}`}
+                                    <Link
+                                        onClick={() => setDrawer(false)}
+                                        href={`/writerBooks/${writer._id}`}
                                         key={writer._id}
                                         className='flex items-center gap-x-1'
                                     >

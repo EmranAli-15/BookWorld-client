@@ -16,7 +16,7 @@ type TBook = {
 
 export default function BookCard({ book }: { book: TBook }) {
     return (
-        <div className='bg-linear-to-bl from-orange-50 to-green-50'>
+        <div className='bg-linear-to-bl from-orange-50 to-green-50 h-full flex flex-col py-1 justify-between'>
             <Link href={`/bookDetails/${book._id}`}>
                 <div className='flex justify-center h-[210px]'>
                     <Image height={210} width={150} src={book.image} alt={book.name}></Image>

@@ -5,12 +5,14 @@ import { useUser } from '@/contextProvider/ContextProvider';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { signOut } from 'next-auth/react';
 
 export default function page() {
     const router = useRouter();
     const { setLoading } = useUser()
 
     const handleLogout = () => {
+        signOut();
         router.push("/");
         Cookies.remove("token");
         setLoading(true);

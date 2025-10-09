@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 
 export default function page() {
     const dispatch = useAppDispatch();
+    let cPage = 1;
 
     const [page, setPage] = useState(1);
     const [noMoreBooks, setNoMoreBooks] = useState(false);
@@ -16,6 +17,11 @@ export default function page() {
 
     const [loading, setLoading] = useState(true);
     const [loadMore, setLoadMore] = useState(false);
+
+    const updatePage = () => {
+        cPage++;
+        setPage(cPage);
+    }
 
 
     useEffect(() => {
@@ -49,7 +55,7 @@ export default function page() {
                 }
 
                 <div className='flex justify-center mt-2'>
-                    {!loadMore && <button disabled={noMoreBooks} onClick={() => setPage(page + 1)} className="btn btn-outline btn-secondary">
+                    {!loadMore && <button disabled={noMoreBooks} onClick={() => updatePage()} className="btn btn-outline btn-secondary">
                         {noMoreBooks ? "NO MORE BOOKS" : "Load More"}
                     </button>}
                     {

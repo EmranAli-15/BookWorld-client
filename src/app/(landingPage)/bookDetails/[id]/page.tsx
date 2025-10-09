@@ -1,5 +1,5 @@
 import AddCardButton from '@/components/bookCard/AddCardButton';
-import { getSingleBook } from '@/services/Services'
+import { getAllBooks, getSingleBook } from '@/services/Services'
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
@@ -46,4 +46,12 @@ export default async function page({ params }: { params: Promise<{ id: string }>
             </div>
         </div>
     )
+}
+
+
+export async function generateStaticParams() {
+    const { data } = await getAllBooks();
+    return data.map((book: { _id: string }) => ({
+        id: book._id,
+    }));
 }

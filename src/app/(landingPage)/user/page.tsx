@@ -9,6 +9,7 @@ import { uploadImage } from '@/utils/uploadImage'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 
 export default function page() {
   const { user, setLoading } = useUser();
@@ -47,6 +48,7 @@ export default function page() {
   };
 
   const handleLogout = () => {
+    signOut();
     router.push("/");
     Cookies.remove("token");
     setLoading(true);
