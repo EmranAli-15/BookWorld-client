@@ -23,8 +23,10 @@ export default function AddCardButton({ book }: { book: any }) {
             quantity: book.quantity,
         }
         if (!user) {
-            addToLocalCart({forLocalCart});
-            dispatch(addToMyCart());
+            const flag = addToLocalCart({ forLocalCart });
+            if (flag) {
+                dispatch(addToMyCart());
+            }
         }
         else {
             addCart(data);

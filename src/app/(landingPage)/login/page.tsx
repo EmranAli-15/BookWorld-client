@@ -13,8 +13,8 @@ export default function page() {
     const { setLoading } = useUser();
     const router = useRouter();
 
-    const [email, setEmail] = useState("emran@gmail.com");
-    const [password, setPassword] = useState("123456");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const [userLogin, { error: resError, isError, isLoading, isSuccess }] = useUserLoginMutation();
 

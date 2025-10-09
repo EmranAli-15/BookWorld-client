@@ -6,7 +6,7 @@ import { booksApi } from '@/redux/features/bookApi'
 import { useAppDispatch } from '@/redux/hooks'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function page() {
     const dispatch = useAppDispatch();
@@ -33,8 +33,8 @@ export default function page() {
                     {
                         books.length > 0 && books.map((book: any) => (
                             <Link href={`/adminEditBook/${book._id}`} key={book._id} className='bg-linear-to-bl from-orange-50 to-green-50'>
-                                <div className='flex justify-center'>
-                                    <Image height={280} width={200} src="https://rokbucket.rokomari.io/ProductNew20190903/260X372/Tinti_Sena_Ovuthan_O_kisu_Na_Bola_Kotha-L_Cornel_Re_M_A_Hamid_PSC-82e09-61329.jpg" alt={book.name}></Image>
+                                <div className='flex justify-center h-[280px]'>
+                                    <Image height={280} width={200} src={book.image} alt={book.name}></Image>
                                 </div>
                                 <div className='px-2 mt-2'>
                                     <p className='line-clamp-2'>{book.name}</p>

@@ -1,8 +1,4 @@
-
-const baseURL = "https://bookworld-server.vercel.app/api";
-// const baseURL = process.env.BASE_URL
-
-
+const baseURL = process.env.BASE_URL
 
 
 

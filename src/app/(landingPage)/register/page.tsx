@@ -3,7 +3,7 @@
 import Container from '@/components/Container'
 import GoogleAuth from '@/components/googleAuth/GoogleAuth';
 import { useUser } from '@/contextProvider/ContextProvider';
-import { useUserLoginMutation, useUserRegisterMutation } from '@/redux/features/authApi';
+import { useUserRegisterMutation } from '@/redux/features/authApi';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { FormEvent, useEffect, useState } from 'react'
@@ -13,10 +13,10 @@ export default function page() {
   const { setLoading } = useUser();
   const router = useRouter();
 
-  const [name, setName] = useState("Emran");
-  const [email, setEmail] = useState("emran@gmail.com");
-  const [password, setPassword] = useState("123456");
-  const [conPassword, setConPassword] = useState("123456");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [conPassword, setConPassword] = useState("");
 
   const [userRegister, { error: resError, isError, isLoading, isSuccess }] = useUserRegisterMutation();
 
