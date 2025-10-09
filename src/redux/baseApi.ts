@@ -1,8 +1,8 @@
-// Or from '@reduxjs/toolkit/query' if not using the auto-generated hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import Cookies from 'js-cookie';
 
-const baseURL = "http://localhost:5000/api"
+// const baseURL = "http://localhost:5000/api"
+const baseURL = "https://bookworld-server.vercel.app/api"
 
 // initialize an empty api service that we'll inject endpoints into later as needed
 export const baseApi = createApi({

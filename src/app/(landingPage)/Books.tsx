@@ -57,4 +57,4 @@ export default async function Books() {
             </section>
         </div>
     )
-}
+};
