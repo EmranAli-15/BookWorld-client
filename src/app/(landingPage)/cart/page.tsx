@@ -2,7 +2,7 @@
 
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
-import { booksApi } from '@/redux/features/bookApi';
+import { booksApi, useDeleteFromCartMutation } from '@/redux/features/bookApi';
 import { removeFromMyCart, removeOrderDetails, resetOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { deleteFromLocalCart, getLocalCartData } from '@/utils/localCart';
@@ -63,12 +63,20 @@ export default function Cart() {
     };
 
 
-    const deleteFromCart = (id: string) => {
-        deleteFromLocalCart(id);
-        dispatch(removeFromMyCart());
-        setReloadForRemove(!reloadForRemove)
-    }
 
+    const [deleteFromMyCart, { isLoading: cartDeleteLoading, isSuccess: cartDeleteSuccess }] = useDeleteFromCartMutation()
+
+
+    const deleteFromCart = (id: string) => {
+        if (!user) {
+            deleteFromLocalCart(id);
+            dispatch(removeFromMyCart());
+            setReloadForRemove(!reloadForRemove)
+        } else {
+            const data = { productId: id, userId: user.userId };
+            deleteFromMyCart(data);
+        }
+    };
 
     useEffect(() => {
         const f = myCart.find((c: any) => c.isChecked);
@@ -109,7 +117,7 @@ export default function Cart() {
             setMyCart(addNeedToCart)
             setLoading(false)
         };
-    }, [user, reloadForRemove]);
+    }, [user, reloadForRemove, cartDeleteSuccess]);
 
     useEffect(() => {
         document.title = "My Cart"
@@ -147,6 +155,7 @@ export default function Cart() {
                                 <h1 className='text-xl font-medium'>TK <span className='text-red-600'>{book.needPrice}</span></h1>
                             </div>
                             <button
+                                disabled={cartDeleteLoading}
                                 onClick={() => deleteFromCart(book._id)}
                                 className='hover:cursor-pointer mt-2'>
                                 <DeleteIcon></DeleteIcon>

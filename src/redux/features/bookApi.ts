@@ -49,16 +49,8 @@ export const booksApi = baseApi.injectEndpoints({
                     url: `/cart/myCart/${id}`,
                     method: 'GET',
                 }
-            )
-        }),
-        getLocalCartBooks: build.mutation({
-            query: (data) => (
-                {
-                    url: `/cart/getLocalCartBooks`,
-                    method: 'POST',
-                    body: data
-                }
-            )
+            ),
+            providesTags: ["myCart"]
         }),
         addToCart: build.mutation({
             query: (data) => (
@@ -69,6 +61,16 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        deleteFromCart: build.mutation({
+            query: (data) => (
+                {
+                    url: "/cart/deleteProductFromCart",
+                    method: 'DELETE',
+                    body: data
+                }
+            ),
+            invalidatesTags: ["myCart"]
+        }),
     }),
 })
 
@@ -76,8 +78,8 @@ export const {
     useGetBooksQuery,
     useGetMyCartQuery,
     useAddToCartMutation,
-    useGetLocalCartBooksMutation,
     useGetCategoryBooksQuery,
     useGetSingleBookQuery,
-    useUpdateBookMutation
+    useUpdateBookMutation,
+    useDeleteFromCartMutation
 } = booksApi;

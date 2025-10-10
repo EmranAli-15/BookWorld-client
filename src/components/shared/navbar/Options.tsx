@@ -6,6 +6,7 @@ import { booksApi } from '@/redux/features/bookApi'
 import { addToMyCart, setPreCart } from '@/redux/features/bookSlice'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { getLocalCart } from '@/utils/localCart'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -16,7 +17,6 @@ export default function Options() {
     const [myCart, setMyCart] = useState(0);
 
     const getCartData = useAppSelector(state => state.myCart);
-
     useEffect(() => {
         setMyCart(getCartData.cart)
     }, [getCartData])
@@ -41,11 +41,18 @@ export default function Options() {
         <div className="flex items-center gap-x-10">
             <div className="indicator">
                 <span className="indicator-item badge badge-secondary rounded-full text-sm p-1 absolute -right-2">{myCart}</span>
-                <Link href="/cart"><CartIcon></CartIcon></Link>
+                <Link href="/cart">
+                    <CartIcon></CartIcon>
+                </Link>
             </div>
             <div className="flex items-center gap-x-1 w-full">
                 {
-                    !user ? <Link href="/login">Sign in</Link> : <Link href={`${user.role == "user" ? "/user" : user.role == "admin" ? "/admin" : "/"}`}><UserIcon w={25}></UserIcon></Link>
+                    !user ? <Link href="/login">Sign in</Link> : <Link href={`${user.role == "user" ? "/user" : user.role == "admin" ? "/admin" : "/"}`}>
+                        {
+                            user?.photo ? <Image className='size-[35px] rounded-full' width={35} height={35} src={user.photo} alt={user.name}></Image> :
+                                <UserIcon w={25}></UserIcon>
+                        }
+                    </Link>
                 }
             </div>
         </div>

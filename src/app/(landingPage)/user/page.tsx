@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider'
-import { UserIcon } from '@/icons/Icons'
+import { CameraIcon, UserIcon } from '@/icons/Icons'
 import { useGetUserQuery, useUpdataUserMutation } from '@/redux/features/userApi'
 import { uploadImage } from '@/utils/uploadImage'
 import Image from 'next/image'
@@ -12,20 +12,23 @@ import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 
 export default function page() {
-  const { user, setLoading } = useUser();
   const router = useRouter();
+  const { user, setLoading } = useUser();
 
   const [error, setError] = useState("");
+  const [updateLoading, setUpdateLoding] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
+  const [address, setAddress] = useState("");
   const [updateImage, SetUpdateImage] = useState<File | "">("");
 
+
+
   const { data, isError, isLoading, isSuccess, error: resErr } = useGetUserQuery(user?.userId);
-  const [updateUserFn, { isError: updateError, isSuccess: updateSuccess, isLoading: updateLoading }] = useUpdataUserMutation();
+  const [updateUserFn, { isError: updateError, isSuccess: updateSuccess }] = useUpdataUserMutation();
 
 
   const handlePhoto = (e: File) => {
@@ -34,6 +37,7 @@ export default function page() {
   };
 
   const handleUpdate = async () => {
+    setUpdateLoding(true);
     let newImage = "";
     if (image) {
       newImage = await uploadImage(updateImage) || "";
@@ -46,13 +50,11 @@ export default function page() {
     const finalData = { id: user?.userId, data }
     updateUserFn(finalData);
   };
+  useEffect(() => {
+    setUpdateLoding(false);
+  }, [updateError, updateSuccess])
 
-  const handleLogout = () => {
-    signOut();
-    router.push("/");
-    Cookies.remove("token");
-    setLoading(true);
-  }
+
 
 
   useEffect(() => {
@@ -72,7 +74,15 @@ export default function page() {
 
   useEffect(() => {
     document.title = "My Profile"
-  }, [])
+  }, []);
+
+
+  const handleLogout = () => {
+    signOut();
+    router.push("/");
+    Cookies.remove("token");
+    setLoading(true);
+  }
 
 
   let content = null;
@@ -88,13 +98,17 @@ export default function page() {
     content = <div>
       <div className='lg:flex gap-x-2'>
         <div className='lg:w-1/2 flex lg:flex-col justify-between'>
-          <div>
-            {
-              image ? <Image height={200} width={200} src={image} alt={name}></Image> :
-                <UserIcon w={200}></UserIcon>
-            }
+          <div className='relative'>
+            <div className='rounded-full size-[200px]'>
+              {
+                image ? <Image className='size-[200px] object-cover rounded-full' height={200} width={200} src={image} alt={name}></Image> :
+                  <UserIcon w={200}></UserIcon>
+              }
+            </div>
 
-            <label className='cursor-pointer hover:text-blue-700' htmlFor="inputImage">Change Image</label>
+            <label className='absolute bottom-0 left-[180px] cursor-pointer hover:text-blue-700' htmlFor="inputImage">
+              <CameraIcon></CameraIcon>
+            </label>
             <input onChange={(e) => handlePhoto(e.target.files![0])} className='hidden' type="file" id="inputImage" />
           </div>
           <div>
@@ -140,7 +154,7 @@ export default function page() {
 
           <button onClick={handleUpdate} disabled={updateLoading} className="btn btn-soft btn-accent w-full">
             {
-              updateLoading ? "updating" : "update"
+              updateLoading ? "updating ..." : "update"
             }
           </button>
 
