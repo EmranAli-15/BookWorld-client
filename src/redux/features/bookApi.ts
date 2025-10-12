@@ -59,7 +59,8 @@ export const booksApi = baseApi.injectEndpoints({
                     method: 'POST',
                     body: data
                 }
-            )
+            ),
+            invalidatesTags: ["myCart"]
         }),
         deleteFromCart: build.mutation({
             query: (data) => (

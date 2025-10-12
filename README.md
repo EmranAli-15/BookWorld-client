@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Live: ```https://bookworld-client.vercel.app/```
+## Technologies:
+### Next.js, Express.js, MongoDB, Mongoose, TypeScript
 
-## Getting Started
+## Key Features:
+### SSG, SSR for fast and caching mechanism.
 
-First, run the development server:
+### Authentication
+Used next auth for authentication and authorization.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Home page
+In landing page here you will see writers, book categories and some populer books. You can get writers and categories book by clicking on them. Also added search system and cart section.
+The cart section is work for both offline and online.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### User dashboard with profile
+In logged in state a user can see his/her dashboard. Here you will see your all information and also you can update them.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Book details
+By clicking a book you will redirect to the book details. There you can see all the details about the book.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## A DUMMY ACCOUNT
+```acc: opu@gmail.com``` ```pwd: 123456```
