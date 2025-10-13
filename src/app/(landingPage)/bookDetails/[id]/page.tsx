@@ -1,4 +1,5 @@
 import AddCardButton from '@/components/bookCard/AddCardButton';
+import { HalfRatingIcon, RatingIcon } from '@/icons/Icons';
 import { getAllBooks, getSingleBook } from '@/services/Services'
 import Image from 'next/image';
 import Link from 'next/link';
@@ -32,7 +33,13 @@ export default async function page({ params }: { params: Promise<{ id: string }>
                     <h1 className='text-2xl font-medium my-2'>{data.name}</h1>
                     <p>By: <Link href={`/writerBooks/${data.writer._id}`} className='text-blue-600'>{data.writer.name}</Link></p>
                     <p>Category: <Link href={`/categoryBooks/${data.category._id}`} className='text-blue-600'>{data.category.name}</Link></p>
-                    <p>***** &nbsp;&nbsp;&nbsp; {data.rating}</p>
+                    <div className='flex items-center my-1'>
+                        <RatingIcon w={15}></RatingIcon>
+                        <RatingIcon w={15}></RatingIcon>
+                        <RatingIcon w={15}></RatingIcon>
+                        <RatingIcon w={15}></RatingIcon>
+                        <HalfRatingIcon w={15}></HalfRatingIcon>
+                    </div>
                     <p>{data.summary.length > 130 ? data.summary.slice(0, 130) : data.summary} <a href='#more' className='text-blue-600'>more</a></p>
                     <h1 className='text-xl font-bold'>TK {data.price}</h1>
                     <div className='mt-3 w-[40%]'>

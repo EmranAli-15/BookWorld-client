@@ -26,6 +26,7 @@ export const addToLocalCart = ({ forLocalCart }: { forLocalCart: any }) => {
     }
     else {
         cart = [{ ...forLocalCart }]
+        isAdded = true;
     }
 
     localStorage.setItem("cart", JSON.stringify(cart));

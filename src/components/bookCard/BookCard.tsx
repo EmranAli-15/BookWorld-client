@@ -2,6 +2,7 @@ import Image from 'next/image'
 import React from 'react'
 import AddCardButton from './AddCardButton'
 import Link from 'next/link'
+import { HalfRatingIcon, RatingIcon } from '@/icons/Icons'
 
 
 type TBook = {
@@ -24,7 +25,15 @@ export default function BookCard({ book }: { book: TBook }) {
                 <div className='px-2 mt-2'>
                     <p className='line-clamp-2'>{book.name}</p>
                     <p className='line-clamp-1 text-sm description'>{book.writer.name}</p>
-                    <p>{book.rating} ({book.quantity})</p>
+                    <div className='flex items-center gap-x-2'>
+                        <div className='flex items-center my-1'>
+                            <RatingIcon w={15}></RatingIcon>
+                            <RatingIcon w={15}></RatingIcon>
+                            <RatingIcon w={15}></RatingIcon>
+                            <RatingIcon w={15}></RatingIcon>
+                            <HalfRatingIcon w={15}></HalfRatingIcon>
+                        </div>
+                        ({book.quantity})</div>
                     <p className='font-medium text-lg'><span className='text-orange-500'>TK </span>{book.price}</p>
                 </div>
             </Link>
