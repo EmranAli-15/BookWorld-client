@@ -189,7 +189,7 @@ export default function Cart() {
 
                 <div className='lg:w-[40%] lg:sticky lg:h-fit lg:top-16'>
                     <div className='bgColor p-2'>
-                        <h1 className='heading text-center border-b border-gray-300'>Shipping Address</h1>
+                        <h1 className='text-lg md:text-2xl font-medium text-center border-b border-gray-300'>Shipping Info</h1>
                         {
                             loading ? <div className='w-full mt-1'>
                                 <p className='h-5 rounded w-[70%] bg-slate-200'></p>
@@ -204,7 +204,7 @@ export default function Cart() {
                         }
                     </div>
                     <div className='bgColor p-2 mt-2'>
-                        <h1 className='font-medium heading text-center border-b border-gray-300'>Checkout Summary</h1>
+                        <h1 className='text-lg md:text-2xl font-medium text-center border-b border-gray-300'>Checkout</h1>
                         <h1 className='text-2xl font-bold description border-b border-dashed py-2 border-gray-300'>Sub-Total: <span className='font-bold'>TK {totalProductPrice}</span></h1>
                         <h1 className='description text-xl font-medium border-b border-dashed py-2 border-gray-300'>Delivery Charge: TK 80</h1>
                     </div>

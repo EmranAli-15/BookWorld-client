@@ -39,13 +39,15 @@ export default function page() {
   const handleUpdate = async () => {
     setUpdateLoding(true);
     let newImage = "";
-    if (image) {
+    if (updateImage) {
       newImage = await uploadImage(updateImage) || "";
     };
 
     const data = {
-      name, image: newImage, phone, address, email
-    }
+      name, phone, address
+    } as any;
+
+    if (newImage) data.image = newImage
 
     const finalData = { id: user?.userId, data }
     updateUserFn(finalData);

@@ -10,11 +10,14 @@ export const booksApi = baseApi.injectEndpoints({
             providesTags: ["getUser"]
         }),
         updataUser: build.mutation({
-            query: ({ id, data }) => ({
+            query: ({ id, data }) => {
+                console.log(data)
+                return {
                 url: `/user/updateUser/${id}`,
                 method: 'POST',
                 body: data
-            }),
+            }
+            },
             invalidatesTags: ["getUser"]
         }),
     }),

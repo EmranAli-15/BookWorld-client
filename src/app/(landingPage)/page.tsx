@@ -7,10 +7,10 @@ import Link from "next/link";
 import Books from "./Books";
 
 export default async function Home() {
-  const getCategory = getAllCategory();
-  const getWriter = getAllWriter();
+  const category = await getAllCategory();
+  const writer = await getAllWriter();
 
-  const [category, writer] = await Promise.all([getCategory, getWriter]);
+  // const [category, writer] = await Promise.all([getCategory, getWriter]);
 
 
   return (
