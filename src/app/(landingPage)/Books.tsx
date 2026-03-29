@@ -23,7 +23,7 @@ export default async function Books() {
         <div>
             <section>
                 <Container>
-                    <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-1'>
+                    <div className='grid grid-cols-2 lg:grid-cols-5 gap-3'>
                         {
                             books.data.map((book: TBook) => (
                                 <div key={book._id}>
@@ -41,10 +41,10 @@ export default async function Books() {
                 </Container>
             </section>
 
-            <section className='mt-10 bg-linear-to-bl from-orange-50 to-green-50 py-5'>
+            <section className='mt-10 bg-linear-to-bl from-orange-50 to-green-50 pt-5 pb-15'>
                 <Container>
                     <h1 className='heading mb-5'>Magazines</h1>
-                    <div className='grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-1'>
+                    <div className='grid grid-cols-2 lg:grid-cols-4 gap-3'>
                         {
                             magazines.data.map((book: TBook) => (
                                 <div key={book._id}>

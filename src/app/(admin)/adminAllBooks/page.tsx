@@ -33,14 +33,14 @@ export default function page() {
                     {
                         books.length > 0 && books.map((book: any) => (
                             <Link href={`/adminEditBook/${book._id}`} key={book._id} className='bg-linear-to-bl from-orange-50 to-green-50'>
-                                <div className='flex justify-center h-[280px]'>
-                                    <Image height={280} width={200} src={book.image} alt={book.name}></Image>
+                                <div className='flex justify-center'>
+                                    <Image className='w-[130px] h-[180px]' height={200} width={200} src={book.image} alt={book.name}></Image>
                                 </div>
                                 <div className='px-2 mt-2'>
-                                    <p className='line-clamp-2'>{book.name}</p>
-                                    <p className='line-clamp-1 text-sm'>{book.writer.name}</p>
-                                    <p>{book.rating} ({Math.floor(Math.random() * 5) + 1})</p>
-                                    <p className='font-medium text-lg'><span className='text-orange-500'>TK </span>{book.price}</p>
+                                    <p className='line-clamp-2 text-[15px] text-center'>{book.name}</p>
+                                    <p className='line-clamp-1 text-[13px] text-gray-500 text-center'>{book.writer.name}</p>
+                                    <p className='text-center'>{book.rating} ({Math.floor(Math.random() * 5) + 1})</p>
+                                    <p className='font-medium text-[15px] text-center'>TK{book.price}</p>
                                 </div>
                             </Link>
                         ))

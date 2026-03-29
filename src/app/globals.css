@@ -2,7 +2,7 @@
 @plugin "daisyui";
 
 body {
-  background: #fff;
+  background: #f1f2f4;
   min-width: 100vw;
   min-height: 100dvh;
 }
@@ -129,6 +129,9 @@ body {
   color: #62748e;
 }
 
-.bgColor {
-  @apply bg-linear-to-bl from-orange-50 to-green-50 p-2
+.bookCard {
+  background-color: #fff;
+  border: 1px solid #bacdff;
+  border-radius: 8px;
+  padding: 8px;
 }

@@ -17,24 +17,25 @@ type TBook = {
 
 export default function BookCard({ book }: { book: TBook }) {
     return (
-        <div className='bg-linear-to-bl from-orange-50 to-green-50 h-full flex flex-col py-1 justify-between'>
+        <div className='bookCard h-full flex flex-col py-1 justify-between'>
             <Link href={`/bookDetails/${book._id}`}>
-                <div className='flex justify-center h-[210px]'>
-                    <Image height={210} width={150} src={book.image} alt={book.name}></Image>
+                <div className='flex justify-center'>
+                    <Image className='w-[130px] h-[180px]' height={150} width={150} src={book.image} alt={book.name}></Image>
                 </div>
                 <div className='px-2 mt-2'>
-                    <p className='line-clamp-2'>{book.name}</p>
-                    <p className='line-clamp-1 text-sm description'>{book.writer.name}</p>
-                    <div className='flex items-center gap-x-2'>
+                    <p className='line-clamp-2 text-[15px] text-center'>{book.name}</p>
+                    <p className='line-clamp-1 text-[13px] description text-center'>{book.writer.name}</p>
+                    <div className='flex items-center gap-x-2 justify-center'>
                         <div className='flex items-center my-1'>
-                            <RatingIcon w={15}></RatingIcon>
-                            <RatingIcon w={15}></RatingIcon>
-                            <RatingIcon w={15}></RatingIcon>
-                            <RatingIcon w={15}></RatingIcon>
-                            <HalfRatingIcon w={15}></HalfRatingIcon>
+                            <RatingIcon w={13}></RatingIcon>
+                            <RatingIcon w={13}></RatingIcon>
+                            <RatingIcon w={13}></RatingIcon>
+                            <RatingIcon w={13}></RatingIcon>
+                            <HalfRatingIcon w={13}></HalfRatingIcon>
                         </div>
-                        ({book.quantity})</div>
-                    <p className='font-medium text-lg'><span className='text-orange-500'>TK </span>{book.price}</p>
+                        <span className='text-[13px]'>({book.quantity})</span>
+                    </div>
+                    <p className='font-medium text-center text-[15px]'>TK {book.price}</p>
                 </div>
             </Link>
             <AddCardButton book={book}></AddCardButton>

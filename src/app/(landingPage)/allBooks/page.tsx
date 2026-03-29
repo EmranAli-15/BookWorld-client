@@ -43,7 +43,7 @@ export default function page() {
             <Container>
                 {
                     loading ? <BookCardSkleton></BookCardSkleton> :
-                        <div className='grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-1'>
+                        <div className='grid grid-cols-2 lg:grid-cols-5 gap-3'>
                             {
                                 books.length > 0 && books.map((book: any) => (
                                     <div key={book._id}>
