@@ -23,8 +23,8 @@ export default function BookCard({ book }: { book: TBook }) {
                     <Image className='w-[130px] h-[180px]' height={150} width={150} src={book.image} alt={book.name}></Image>
                 </div>
                 <div className='px-2 mt-2'>
-                    <p className='line-clamp-2 text-[15px] text-center'>{book.name}</p>
-                    <p className='line-clamp-1 text-[13px] description text-center'>{book.writer.name}</p>
+                    <p className='line-clamp-2 p1 text-center'>{book.name}</p>
+                    <p className='line-clamp-1 p2 text-center'>{book.writer.name}</p>
                     <div className='flex items-center gap-x-2 justify-center'>
                         <div className='flex items-center my-1'>
                             <RatingIcon w={13}></RatingIcon>
@@ -33,9 +33,9 @@ export default function BookCard({ book }: { book: TBook }) {
                             <RatingIcon w={13}></RatingIcon>
                             <HalfRatingIcon w={13}></HalfRatingIcon>
                         </div>
-                        <span className='text-[13px]'>({book.quantity})</span>
+                        <span className='p2'>({book.quantity})</span>
                     </div>
-                    <p className='font-medium text-center text-[15px]'>TK {book.price}</p>
+                    <p className='font-medium text-center p1'>TK {book.price}</p>
                 </div>
             </Link>
             <AddCardButton book={book}></AddCardButton>

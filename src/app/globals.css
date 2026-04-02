@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+:root {
+  --p1: 15px;
+  --p2: 13px;
+
+}
+
 body {
   background: #f1f2f4;
   min-width: 100vw;
@@ -28,6 +34,7 @@ body {
     box-shadow: 19px 0 0 0, 38px 0 0 3px, 57px 0 0 7px
   }
 }
+
 /* END END END END END END END END END END */
 
 
@@ -104,6 +111,7 @@ body {
     background-position: top, center
   }
 }
+
 /* END END END END END END END END END END */
 
 
@@ -125,7 +133,12 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.description {
+.p1 {
+  font-size: var(--p1);
+}
+
+.p2 {
+  font-size: var(--p2);
   color: #62748e;
 }
 

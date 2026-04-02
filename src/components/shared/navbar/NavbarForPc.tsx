@@ -23,6 +23,7 @@ export default function NavbarForPc() {
             if (text) {
                 const res = await dispatch(booksApi.endpoints.searchBook.initiate({ text })).unwrap();
                 setData(res.data);
+                console.log(res)
             } else {
                 setData([]);
             }
@@ -62,21 +63,31 @@ export default function NavbarForPc() {
             </div>
 
 
-            <div className='relative'>
-                {
-                    data.length > 0 && <div className='w-full shadow-2xl z-50 absolute bgColor'>
-                        {
-                            data.map((book: any) => {
-                                return <Link href={`/bookDetails/${book._id}`} key={book._id}>
-                                    <div onClick={() => setData([])} className='mt-3 hover:bg-white cursor-pointer p-1'>
-                                        <h1>{book.name}</h1>
-                                        <small className='text-[12px] description ml-2'>- {book.writerData.name}</small>
-                                    </div>
-                                </Link>
-                            })
-                        }
-                    </div>
-                }
+            <div className='w-full flex justify-center'>
+                <div className='relative w-[800px]'>
+                    {
+                        data.length > 0 && <div className='w-full z-999 shadow-2xl absolute max-h-[300px] overflow-y-scroll'>
+                            <div className=' mx-auto -mt-3 bg-white'>
+                                {
+                                    data.map((book: any) => {
+                                        return <Link href={`/bookDetails/${book._id}`} key={book._id}>
+                                            <div onClick={() => setData([])} className='mt-3 cursor-pointer p-2 flex gap-x-2'>
+                                                <Image className='h-16 w-11' src={book.image} height={50} width={50} alt={book.name}></Image>
+                                                <div className='w-full'>
+                                                    <p className='p1 hover:text-orange-500'>{book.name}</p>
+                                                    <div className='flex justify-between w-full'>
+                                                        <p className='p2'>{book.writerData.name}</p>
+                                                        <p className='p2 mr-2'>Tk {book.price}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    })
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </Container>
     )

@@ -41,7 +41,7 @@ export default async function Home() {
 
             <div className="lg:w-1/2">
               <h1 className="font-bold LandingHeading">Unleash Your <span className="text-orange-500">Creativity</span> Withe The Power Of A Book</h1>
-              <p className="description">This should be used to tell a story and let tour users know a little more about your product or service.</p>
+              <p className="p2">This should be used to tell a story and let tour users know a little more about your product or service.</p>
             </div>
           </div>
         </Container>
@@ -59,7 +59,7 @@ export default async function Home() {
                     href={`/writerBooks/${category._id}`}
                     key={category._id}
                   >
-                    <p className="w-full line-clamp-1 hover:text-blue-500">{category.name}</p>
+                    <p className="w-full p1 line-clamp-1 hover:text-blue-500">{category.name}</p>
                   </Link>
                 ))
               }
