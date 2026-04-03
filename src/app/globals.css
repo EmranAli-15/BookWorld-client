@@ -133,13 +133,28 @@ body {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+
+.h1{
+  font-size: 20px;
+}
 .p1 {
-  font-size: var(--p1);
+  font-size: 17px;
+}
+.p2 {
+  font-size: 15px;
+  color: #62748e;
 }
 
-.p2 {
-  font-size: var(--p2);
-  color: #62748e;
+@media screen and (max-width: 480px) {
+  .h1{
+    font-size: 18px;
+  }
+  .p1{
+    font-size: 15px;
+  }
+  .p2{
+    font-size: 13px;
+  }
 }
 
 .bookCard {

@@ -23,7 +23,7 @@ export default async function Home() {
                 href={`/categoryBooks/${category._id}`}
                 key={category._id}
               >
-                <p className="w-full hover:text-blue-500">{category.name}</p>
+                <p className="p1 w-full hover:text-blue-500">{category.name}</p>
               </Link>
             ))
           }

@@ -138,7 +138,7 @@ export default function Cart() {
     else if (!loading && myCart.length > 0) {
         content = myCart.map((book: any, index: number) => {
             return (
-                <div className='flex justify-between border-b-2 border-b-amber-100 p-2 bgColor' key={index}>
+                <div className='flex justify-between bg-white mb-2 p-2' key={index}>
                     <div className='flex items-center gap-x-1'>
                         <div>
                             <input onChange={(e) => handleSelection({ checked: e.target.checked, book })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
@@ -149,10 +149,10 @@ export default function Cart() {
                     </div>
                     <div className='flex items-center justify-between w-full'>
                         <div className='lg:w-[70%]'>
-                            <h1 className='text-lg line-clamp-1'>{book.name}</h1>
-                            <p className='my-1'>{book.quantity} pcs available</p>
+                            <h1 className='p1 line-clamp-1'>{book.name}</h1>
+                            <p className='p2 my-1'>{book.quantity} pcs available</p>
                             <div className='block lg:hidden'>
-                                <h1 className='text-xl font-medium'>TK <span className='text-red-600'>{book.needPrice}</span></h1>
+                                <h1 className='p1 font-medium'>tk <span className='text-red-600'>{book.needPrice}</span></h1>
                             </div>
                             <button
                                 disabled={cartDeleteLoading}
@@ -167,7 +167,7 @@ export default function Cart() {
                             <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
                         </div>
                         <div className='hidden lg:block'>
-                            <h1 className='text-xl font-medium text-red-600'>TK {book.needPrice}</h1>
+                            <h1 className='p1 font-medium text-red-600'>tk {book.needPrice}</h1>
                         </div>
                     </div>
                 </div>
@@ -179,7 +179,7 @@ export default function Cart() {
     return (
         <Container>
             <div className='flex flex-col-reverse lg:flex-row gap-x-5 my-5'>
-                <div className='lg:w-[60%] mt-2 lg:mt-0'>
+                <div className='lg:w-[60%] mt-8 lg:mt-0'>
                     <div>
                         {
                             content
@@ -187,9 +187,9 @@ export default function Cart() {
                     </div>
                 </div>
 
-                <div className='lg:w-[40%] lg:sticky lg:h-fit lg:top-16'>
-                    <div className='bgColor p-2'>
-                        <h1 className='text-lg md:text-2xl font-medium text-center border-b border-gray-300'>Shipping Info</h1>
+                <div className='lg:w-[40%] bg-white lg:sticky lg:h-fit lg:top-16'>
+                    <div className='p-2'>
+                        <h1 className='h1 font-medium border-b py-2 border-gray-300'>Shipping Address</h1>
                         {
                             loading ? <div className='w-full mt-1'>
                                 <p className='h-5 rounded w-[70%] bg-slate-200'></p>
@@ -197,21 +197,30 @@ export default function Cart() {
                                 <p className='h-5 rounded w-[80%] bg-slate-200'></p>
                             </div> :
                                 user && <div>
-                                    <p>{user.name}</p>
-                                    <p>{user.phone}</p>
-                                    <p>{user.address}</p>
+                                    <p className='p1'>{user?.name}</p>
+                                    <p className='p2'>{user?.phone}</p>
+                                    <p className='p2'>{user?.address}</p>
                                 </div>
                         }
                     </div>
-                    <div className='bgColor p-2 mt-2'>
-                        <h1 className='text-lg md:text-2xl font-medium text-center border-b border-gray-300'>Checkout</h1>
-                        <h1 className='text-2xl font-bold description border-b border-dashed py-2 border-gray-300'>Sub-Total: <span className='font-bold'>TK {totalProductPrice}</span></h1>
-                        <h1 className='description text-xl font-medium border-b border-dashed py-2 border-gray-300'>Delivery Charge: TK 80</h1>
+                    <div className='p-2 mt-2'>
+                        <h1 className='h1 font-medium border-b border-gray-300 py-2'>Checkout Summary</h1>
+                        <div className='flex items-center justify-between'>
+                            <h1 className='p1 py-2'>Subtotal</h1>
+                            <h1 className='p1'>tk {totalProductPrice}</h1>
+                        </div>
+                        <div className='border-b border-gray-300 border-dashed' />
+                        <div className='flex items-center justify-between'>
+                            <h1 className='p1 py-2'>Delivery charge</h1>
+                            <h1 className='p1'>tk 80</h1>
+                        </div>
+                        <div className='border-b border-gray-300 border-dashed' />
                     </div>
                     {
                         totalProductPrice > 80 && <div>
-                            <div className='bgColor mt-2'>
-                                <h1 className='text-green-600 font-medium heading text-center'>Payable Total: <span className='text-red-600'>TK {totalProductPrice + 80}</span></h1>
+                            <div className='flex items-center justify-between m-2'>
+                                <h1 className='p1 font-medium'>Payable Total:</h1>
+                                <h1 className='p1 font-medium'>tk {totalProductPrice + 80}</h1>
                             </div>
 
                             <div className='mt-2'>
