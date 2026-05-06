@@ -8,7 +8,6 @@ import React, { useState } from 'react'
 
 export default function page() {
     const data = useAppSelector(state => state.myCart.orderDetails);
-
     const tk = data.reduce((acc, x) => acc + x.price, 0)
 
     const [checked, setChecked] = useState(true);

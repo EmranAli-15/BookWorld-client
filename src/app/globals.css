@@ -4,7 +4,7 @@
 :root {
   --p1: 15px;
   --p2: 13px;
-
+  --pri-color: #f43098;
 }
 
 body {
@@ -134,25 +134,29 @@ body {
 }
 
 
-.h1{
+.h1 {
   font-size: 20px;
 }
+
 .p1 {
   font-size: 17px;
 }
+
 .p2 {
   font-size: 15px;
   color: #62748e;
 }
 
 @media screen and (max-width: 480px) {
-  .h1{
+  .h1 {
     font-size: 18px;
   }
-  .p1{
+
+  .p1 {
     font-size: 15px;
   }
-  .p2{
+
+  .p2 {
     font-size: 13px;
   }
 }

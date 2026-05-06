@@ -152,7 +152,7 @@ export default function Cart() {
                             <h1 className='p1 line-clamp-1'>{book.name}</h1>
                             <p className='p2 my-1'>{book.quantity} pcs available</p>
                             <div className='block lg:hidden'>
-                                <h1 className='p1 font-medium'>tk <span className='text-red-600'>{book.needPrice}</span></h1>
+                                <h1 className='p1 font-medium'>tk <span className='text-red-600'>{book.price}</span></h1>
                             </div>
                             <button
                                 disabled={cartDeleteLoading}
@@ -167,7 +167,7 @@ export default function Cart() {
                             <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
                         </div>
                         <div className='hidden lg:block'>
-                            <h1 className='p1 font-medium text-red-600'>tk {book.needPrice}</h1>
+                            <h1 className='p1 font-medium text-red-600'>tk {book.price}</h1>
                         </div>
                     </div>
                 </div>
