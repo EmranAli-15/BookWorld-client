@@ -1,7 +1,8 @@
 "use client";
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Send } from 'lucide-react'; // Install lucide-react for icons
+const bot_profile = "https://cdn.create.vista.com/api/media/small/176577870/stock-vector-cute-smiling-funny-robot-chat-bot"
 
 const ChatWidget = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -10,8 +11,23 @@ const ChatWidget = () => {
     const toggleChat = () => setIsOpen(!isOpen);
 
 
+
+
+    const bottomRef = useRef<any>(null);
+    const [messages, setMessages] = useState<any>([]);
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, [messages,isOpen]);
+
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault()
+
+        setMessages((prev: any) => [...prev, { role: "user", text: message }]);
+
+        // const res = await gemini_api({ message, history });
+
+        setMessages((prev: any) => [...prev, { role: "model", text: "I'n book world bot. need any help" }]);
+        setMessage("")
     }
 
     return (
@@ -35,7 +51,32 @@ const ChatWidget = () => {
                         <div className="bg-blue-100 text-blue-800 p-3 rounded-lg max-w-[80%] self-start text-sm">
                             Hello! Looking for a specific book today?
                         </div>
-                        {/* Map through your RAG response state here */}
+
+
+                        {
+                            messages?.map((mes: any, idx: any) => {
+                                return (
+                                    mes.role == "model" ? <div key={idx} className="flex items-start gap-2">
+                                        <img
+                                            src={bot_profile}
+                                            alt="avatar"
+                                            className="w-8 h-8 rounded-full"
+                                        />
+                                        <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl max-w-xs">
+                                            {mes.text}
+                                        </div>
+                                    </div> :
+                                        <div key={idx} className="flex justify-end">
+                                            <div className="bg-blue-500 text-white px-4 py-2 rounded-2xl max-w-xs">
+                                                {mes.text}
+                                            </div>
+                                        </div>
+                                )
+                            })
+                        }
+
+                        <div ref={bottomRef} />
+
                     </div>
 
                     {/* Input Area */}
