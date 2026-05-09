@@ -11,23 +11,40 @@ const ChatWidget = () => {
     const toggleChat = () => setIsOpen(!isOpen);
 
 
-
+    const [generating, setGenerating] = useState(false);
 
     const bottomRef = useRef<any>(null);
     const [messages, setMessages] = useState<any>([]);
     useEffect(() => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, [messages,isOpen]);
+    }, [messages, isOpen]);
 
-    const handleSubmit = (e: FormEvent) => {
+    const url = "http://127.0.0.1:5000/hybrid"
+
+    const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
 
         setMessages((prev: any) => [...prev, { role: "user", text: message }]);
+        setGenerating(true)
 
-        // const res = await gemini_api({ message, history });
+        try {
+            const response = await fetch(url, {
+                method: 'POST', //
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: message }),
+            })
 
-        setMessages((prev: any) => [...prev, { role: "model", text: "I'n book world bot. need any help" }]);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            setMessages((prev: any) => [...prev, { role: "model", text: data }]);
+        } catch (error) {
+            setMessages((prev: any) => [...prev, { role: "model", text: "প্রিয় গ্রাহক কিছুটা টেকনিক্যাল সমস্যা হয়েছে, আরেকবার চেষ্ঠা করুন।" }]);
+        }
+
         setMessage("")
+        setGenerating(false)
     }
 
     return (
@@ -39,7 +56,7 @@ const ChatWidget = () => {
                     <div className="bg-blue-600 p-4 text-white flex justify-between items-center">
                         <div>
                             <h3 className="font-bold text-lg">Book World Agent</h3>
-                            <p className="text-xs opacity-80">Powered by RAG</p>
+                            <p className="text-xs opacity-80">Powered by Book World RAG</p>
                         </div>
                         <button onClick={toggleChat} className="hover:bg-blue-700 p-1 rounded">
                             <X size={20} />
@@ -56,16 +73,17 @@ const ChatWidget = () => {
                         {
                             messages?.map((mes: any, idx: any) => {
                                 return (
-                                    mes.role == "model" ? <div key={idx} className="flex items-start gap-2">
-                                        <img
-                                            src={bot_profile}
-                                            alt="avatar"
-                                            className="w-8 h-8 rounded-full"
-                                        />
-                                        <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl max-w-xs">
-                                            {mes.text}
-                                        </div>
-                                    </div> :
+                                    mes.role == "model" ?
+                                        <div key={idx} className="flex items-start gap-2">
+                                            <img
+                                                src={bot_profile}
+                                                alt="avatar"
+                                                className="w-8 h-8 rounded-full"
+                                            />
+                                            <div className="bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl max-w-xs">
+                                                {mes.text}
+                                            </div>
+                                        </div> :
                                         <div key={idx} className="flex justify-end">
                                             <div className="bg-blue-500 text-white px-4 py-2 rounded-2xl max-w-xs">
                                                 {mes.text}
@@ -74,7 +92,20 @@ const ChatWidget = () => {
                                 )
                             })
                         }
-
+                        {
+                            generating && <div className="flex items-start gap-2">
+                                <img
+                                    src={bot_profile}
+                                    alt="avatar"
+                                    className="w-8 h-8 rounded-full"
+                                />
+                                <p className="bg-gray-200 text-gray-800 px-4 py-2 rounded-2xl max-w-xs">
+                                    <span className='animate-pulse'>•</span>
+                                    <span className='animate-pulse'>•</span>
+                                    <span className='animate-pulse'>•</span>
+                                </p>
+                            </div>
+                        }
                         <div ref={bottomRef} />
 
                     </div>
