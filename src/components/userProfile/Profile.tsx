@@ -124,7 +124,7 @@ export default function userProfile() {
         <div className='lg:w-1/2 mt-5 lg:mt-0'>
           <label htmlFor="">Name:</label>
           <input
-            className='border-2 border-secondary outline-0 p-2 w-full rounded'
+            className='border-2 border-white bg-white outline-0 p-2 w-full rounded'
             value={name}
             onChange={(e) => setName(e.target.value)}
             type="text"
@@ -132,14 +132,14 @@ export default function userProfile() {
 
           <p className='mt-2'>Email:</p>
           <input
-            className='border-2 border-secondary text-gray-400 cursor-not-allowed outline-0 p-2 w-full rounded'
+            className='border-2 border-white bg-white text-gray-400 cursor-not-allowed outline-0 p-2 w-full rounded'
             value={email}
             disabled
           />
 
           <p className='mt-2'>Phone:</p>
           <input
-            className='border-2 border-secondary outline-0 p-2 w-full rounded'
+            className='border-2 border-white bg-white outline-0 p-2 w-full rounded'
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             type="text"
@@ -148,7 +148,7 @@ export default function userProfile() {
 
           <p className='mt-2'>Address:</p>
           <textarea
-            className='border-2 border-secondary outline-0 p-2 w-full rounded'
+            className='border-2 border-white bg-white outline-0 p-2 w-full rounded'
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder='Write your shipping address'
