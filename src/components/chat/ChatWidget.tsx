@@ -19,7 +19,9 @@ const ChatWidget = () => {
         bottomRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isOpen]);
 
-    const url = "http://127.0.0.1:5000/hybrid"
+    // const url = "http://127.0.0.1:5000/hybrid"  // for main local
+    // const url = "http://127.0.0.1:7860/hybrid"  // for wsgi
+    const url = "https://emranali-15-book-world-rag.hf.space/hybrid"  // HF deployed
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault()
@@ -67,6 +69,9 @@ const ChatWidget = () => {
                     <div className="flex-1 p-4 overflow-y-auto bg-gray-50 space-y-4">
                         <div className="bg-blue-100 text-blue-800 p-3 rounded-lg max-w-[80%] self-start text-sm">
                             Hello! Looking for a specific book today?
+                        </div>
+                        <div className="bg-red-100 text-blue-800 p-3 rounded-lg max-w-[80%] self-start text-sm">
+                            For hugging face free tier server, for the first time it may take 15-20 sec. Please wait..
                         </div>
 
 
