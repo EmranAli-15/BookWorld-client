@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import Profile from '../../../components/userProfile/Profile'
 import Container from '@/components/Container'
+import Order from '@/components/userOrder/Order'
 
 export default function page() {
 
@@ -24,7 +25,7 @@ export default function page() {
       </Container>
 
       {
-        isProfile ? <Profile></Profile> : <p>order details</p>
+        isProfile ? <Profile></Profile> : <Order></Order>
       }
     </div>
   )

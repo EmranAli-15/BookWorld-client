@@ -72,6 +72,14 @@ export const booksApi = baseApi.injectEndpoints({
             ),
             invalidatesTags: ["myCart"]
         }),
+        getMyOrder: build.query({
+            query: (id) => (
+                {
+                    url: `/users-orders/get-my-order/${id}`,
+                    method: 'GET',
+                }
+            )
+        }),
     }),
 })
 
@@ -82,5 +90,6 @@ export const {
     useGetCategoryBooksQuery,
     useGetSingleBookQuery,
     useUpdateBookMutation,
-    useDeleteFromCartMutation
+    useDeleteFromCartMutation,
+    useGetMyOrderQuery
 } = booksApi;
