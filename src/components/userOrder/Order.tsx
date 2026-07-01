@@ -27,15 +27,15 @@ export default function Order() {
         content = <div>
             {
                 data.data.map((p: any) => {
-                    return <div key={p._id} className='mt-5 p-2 bg-white'>
+                    return <div key={p._id} className='mt-5 p-2 md:p-5 bg-white rounded shadow'>
                         <p>Order Id: {p._id}</p>
-                        <p>Status: <span className='text-green-500'>{p.status}</span></p>
+                        <p>Status: <span className='text-green-600'>{p.status}</span></p>
                         {
                             p.all_orders.map((ap: any, idx: any) => {
                                 return <div className='mt-4' key={idx}>
                                     <div className='flex gap-x-2'>
                                         <Image
-                                            className='h-30 w-24'
+                                            className='h-34 w-24'
                                             height={100}
                                             width={80}
                                             src={ap.product_details.image}
@@ -58,7 +58,6 @@ export default function Order() {
 
     return (
         <Container>
-            <div>Order</div>
             {
                 content
             }
