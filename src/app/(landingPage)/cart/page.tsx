@@ -3,7 +3,7 @@
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
 import { booksApi, useDeleteFromCartMutation } from '@/redux/features/bookApi';
-import { removeFromMyCart, removeOrderDetails, resetOrderDetails, setOrderDetails } from '@/redux/features/bookSlice';
+import { setOrderDetails, resetOrderDetails } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { deleteFromLocalCart, getLocalCartData } from '@/utils/localCart';
 import Image from 'next/image';
@@ -11,6 +11,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import CartSkleton from './CartSkleton';
 import { DeleteIcon } from '@/icons/Icons';
+import { useRouter } from 'next/navigation';
 
 type book = {
     _id: string,
@@ -24,6 +25,7 @@ type book = {
 
 export default function Cart() {
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
     const { user } = useUser();
     const [myCart, setMyCart] = useState<any>([]);
@@ -35,10 +37,7 @@ export default function Cart() {
     console.log(myCart)
 
     const handleSelection = ({ checked, book }: { checked: boolean, book: book }) => {
-        const f = myCart.find((c: any) => c._id == book._id).isChecked = checked;
-        const index = myCart.indexOf(f);
-        let updatedCart = myCart;
-        updatedCart[index] = f;
+        const updatedCart = myCart.map((b: book) => b._id == book._id ? { ...b, isChecked: checked } : b)
         setMyCart(() => updatedCart);
 
         if (checked) {
@@ -50,10 +49,8 @@ export default function Cart() {
 
 
     const updateQuantity = ({ id, newQ }: { id: string, newQ: number }) => {
-        setMyCart((prevItems: any) =>
-            prevItems.map((item: any) =>
-                item._id === id ? { ...item, need: newQ, needPrice: item.price * newQ } : item
-            )
+        setMyCart((prevItems: book[]) =>
+            prevItems.map((b: book) => b._id === id ? { ...b, need: newQ } : b)
         );
     };
 
@@ -79,7 +76,6 @@ export default function Cart() {
     const deleteFromCart = (id: string) => {
         if (!user) {
             deleteFromLocalCart(id);
-            dispatch(removeFromMyCart());
             setReloadForRemove(!reloadForRemove)
         } else {
             const data = { productId: id, userId: user.userId };
@@ -97,7 +93,6 @@ export default function Cart() {
             const simpleForm = data.data.map((data: any) => ({
                 ...data.productId,
                 need: 1,
-                needPrice: data.productId.price,
                 isChecked: false,
             }));
             setMyCart(simpleForm);
@@ -113,7 +108,6 @@ export default function Cart() {
                 return ({
                     ...c,
                     need: 1,
-                    needPrice: c.price,
                     isChecked: false,
                 })
             })
@@ -126,6 +120,12 @@ export default function Cart() {
         document.title = "My Cart"
     }, []);
 
+
+    const goForOrder = () => {
+        const booksForOrder = myCart.filter((b: book) => b.isChecked)
+        dispatch(setOrderDetails(booksForOrder));
+        router.push("/orderProcess");
+    }
 
     let content = null;
 
@@ -227,9 +227,7 @@ export default function Cart() {
                             </div>
 
                             <div className='mt-2'>
-                                <Link href="/orderProcess">
-                                    <button className='btn btn-secondary w-full'>Go For Order</button>
-                                </Link>
+                                <button onClick={goForOrder} className='btn btn-secondary w-full'>Go For Order</button>
                             </div>
                         </div>
                     }
