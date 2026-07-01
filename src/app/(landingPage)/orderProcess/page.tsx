@@ -10,6 +10,8 @@ export default function page() {
     const data = useAppSelector(state => state.myCart.orderDetails);
     const tk = data.reduce((acc, x) => acc + x.price, 0)
 
+    console.log(data)
+
     const [checked, setChecked] = useState(true);
 
     return (

@@ -36,7 +36,7 @@ export default async function Home() {
           <div className="lg:flex flex-row-reverse items-center justify-between">
 
             <div className="lg:w-1/2 flex justify-center">
-              <Image className="md:w-[400px] w-[300px]" src={landingPageBookIcon} alt="Book"></Image>
+              <Image className="md:w-100 w-75" src={landingPageBookIcon} alt="Book"></Image>
             </div>
 
             <div className="lg:w-1/2">

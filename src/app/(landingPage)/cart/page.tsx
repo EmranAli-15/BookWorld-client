@@ -12,8 +12,19 @@ import React, { useEffect, useState } from 'react'
 import CartSkleton from './CartSkleton';
 import { DeleteIcon } from '@/icons/Icons';
 
+type book = {
+    _id: string,
+    name: string,
+    image: string,
+    price: number,
+    quantity: number,
+    need: number,
+    isChecked: boolean,
+};
+
 export default function Cart() {
     const dispatch = useAppDispatch();
+
     const { user } = useUser();
     const [myCart, setMyCart] = useState<any>([]);
     const [loading, setLoading] = useState(true);
@@ -21,21 +32,19 @@ export default function Cart() {
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
+    console.log(myCart)
 
-    const handleSelection = ({ checked, book }: { checked: boolean, book: any }) => {
+    const handleSelection = ({ checked, book }: { checked: boolean, book: book }) => {
         const f = myCart.find((c: any) => c._id == book._id).isChecked = checked;
         const index = myCart.indexOf(f);
         let updatedCart = myCart;
         updatedCart[index] = f;
-        setMyCart(updatedCart);
+        setMyCart(() => updatedCart);
 
-        const details = { userId: user?.userId, productId: book._id, price: book.needPrice };
         if (checked) {
-            setTotalProductPrice(totalProductPrice + book.needPrice);
-            dispatch(setOrderDetails(details));
+            setTotalProductPrice(totalProductPrice + book.price * book.need)
         } else {
-            setTotalProductPrice(totalProductPrice - book.needPrice);
-            dispatch(removeOrderDetails(details));
+            setTotalProductPrice(totalProductPrice - book.price * book.need)
         }
     };
 
@@ -79,20 +88,14 @@ export default function Cart() {
     };
 
     useEffect(() => {
-        const f = myCart.find((c: any) => c.isChecked);
-        if (!f)
-            dispatch(resetOrderDetails());
+        dispatch(resetOrderDetails());
     }, [])
 
     useEffect(() => {
         const getMyCart = async () => {
             const data = await dispatch(booksApi.endpoints.getMyCart.initiate(user.userId)).unwrap();
             const simpleForm = data.data.map((data: any) => ({
-                _id: data.productId._id,
-                name: data.productId.name,
-                image: data.productId.image,
-                price: data.productId.price,
-                quantity: data.productId.quantity,
+                ...data.productId,
                 need: 1,
                 needPrice: data.productId.price,
                 isChecked: false,
@@ -138,12 +141,12 @@ export default function Cart() {
     else if (!loading && myCart.length > 0) {
         content = myCart.map((book: any, index: number) => {
             return (
-                <div className='flex justify-between bg-white mb-2 p-2' key={index}>
+                <div className='flex justify-between rounded bg-white mb-2 p-2' key={index}>
                     <div className='flex items-center gap-x-1'>
                         <div>
                             <input onChange={(e) => handleSelection({ checked: e.target.checked, book })} type="checkbox" defaultChecked={false} className="checkbox checkbox-sm checkbox-secondary" />
                         </div>
-                        <Link href={`/bookDetails/${book._id}`} className='w-[110px]'>
+                        <Link href={`/bookDetails/${book._id}`} className='w-27.5'>
                             <Image width={90} height={130} src={book?.image} alt={book.name}></Image>
                         </Link>
                     </div>
@@ -187,7 +190,7 @@ export default function Cart() {
                     </div>
                 </div>
 
-                <div className='lg:w-[40%] bg-white lg:sticky lg:h-fit lg:top-16'>
+                <div className='lg:w-[40%] bg-white rounded lg:sticky lg:h-fit lg:top-16'>
                     <div className='p-2'>
                         <h1 className='h1 font-medium border-b py-2 border-gray-300'>Shipping Address</h1>
                         {

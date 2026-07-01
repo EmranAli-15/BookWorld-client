@@ -20,7 +20,7 @@ export default function BookCard({ book }: { book: TBook }) {
         <div className='bookCard h-full flex flex-col py-1 justify-between'>
             <Link href={`/bookDetails/${book._id}`}>
                 <div className='flex justify-center'>
-                    <Image className='w-[130px] h-[180px]' height={150} width={150} src={book.image} alt={book.name}></Image>
+                    <Image className='w-32.5 h-45' height={150} width={150} src={book.image} alt={book.name}></Image>
                 </div>
                 <div className='px-2 mt-2'>
                     <p className='line-clamp-2 p1 text-center'>{book.name}</p>

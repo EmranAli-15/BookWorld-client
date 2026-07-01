@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 type TOrderDetails = {
-    userId: string,
     productId: string,
-    price: number
+    titile: string,
+    price: number,
+    image: string,
+    quantity: number
 }
 
 const initialState = {
