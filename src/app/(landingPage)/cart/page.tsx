@@ -3,7 +3,7 @@
 import Container from '@/components/Container'
 import { useUser } from '@/contextProvider/ContextProvider';
 import { booksApi, useDeleteFromCartMutation } from '@/redux/features/bookApi';
-import { setOrderDetails, resetOrderDetails } from '@/redux/features/bookSlice';
+import { setOrderDetails, resetOrderDetails, removeFromMyCart } from '@/redux/features/bookSlice';
 import { useAppDispatch } from '@/redux/hooks';
 import { deleteFromLocalCart, getLocalCartData } from '@/utils/localCart';
 import Image from 'next/image';
@@ -80,6 +80,7 @@ export default function Cart() {
         } else {
             const data = { productId: id, userId: user.userId };
             deleteFromMyCart(data);
+            dispatch(removeFromMyCart())
         }
     };
 

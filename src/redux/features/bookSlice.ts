@@ -4,7 +4,8 @@ type TOrderDetails = {
     titile: string,
     price: number,
     image: string,
-    quantity: number
+    quantity: number,
+    need: number
 }
 
 const initialState = {
@@ -26,7 +27,7 @@ const myCart = createSlice({
             state.cart = actions.payload;
         },
         setOrderDetails: (state, actions) => {
-            state.orderDetails.push(actions.payload);
+            state.orderDetails = actions.payload;
         },
         resetOrderDetails: (state) => {
             state.orderDetails = [];

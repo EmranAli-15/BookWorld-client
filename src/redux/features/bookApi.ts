@@ -80,6 +80,15 @@ export const booksApi = baseApi.injectEndpoints({
                 }
             )
         }),
+        createMyOrder: build.mutation({
+            query: (data) => (
+                {
+                    url: "/users-orders/create-order",
+                    method: 'POST',
+                    body: data
+                }
+            )
+        }),
     }),
 })
 
@@ -91,5 +100,6 @@ export const {
     useGetSingleBookQuery,
     useUpdateBookMutation,
     useDeleteFromCartMutation,
-    useGetMyOrderQuery
+    useGetMyOrderQuery,
+    useCreateMyOrderMutation
 } = booksApi;

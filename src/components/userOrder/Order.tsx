@@ -2,7 +2,7 @@
 import { useUser } from '@/contextProvider/ContextProvider';
 import { useGetMyOrderQuery } from '@/redux/features/bookApi';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../Container';
 import Image from 'next/image';
 
@@ -10,14 +10,21 @@ export default function Order() {
 
     const router = useRouter();
     const { user, setLoading } = useUser();
+    const [tk, setTk] = useState(0);
 
     const { data, isError, isLoading, isSuccess, error: resErr } = useGetMyOrderQuery(user?.userId);
 
-    useEffect(() => {
-        if (isSuccess) {
-            console.log(data)
-        }
-    }, [isSuccess])
+    const [sorted, setSorted] = useState<any>([]);
+
+    // useEffect(() => {
+    //     if (isSuccess) {
+    //         const sortedData = data.data.sort((a: any, b: any) => {
+    //             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    //         });
+    //         console.log(sortedData)
+    //         setSorted(sortedData)
+    //     }
+    // }, [isSuccess])
 
 
 
@@ -27,7 +34,9 @@ export default function Order() {
         content = <div>
             {
                 data.data.map((p: any) => {
+                    const tk = p.all_orders.reduce((acc: any, x: any) => acc + (x.price * x.quantity), 0)
                     return <div key={p._id} className='mt-5 p-2 md:p-5 bg-white rounded shadow'>
+                        <p className='mb-2'>Paybal total: <span className='font-medium'>TK {tk + 80}</span></p>
                         <p>Order Id: {p._id}</p>
                         <p>Status: <span className='text-green-600'>{p.status}</span></p>
                         {
@@ -45,6 +54,7 @@ export default function Order() {
                                         <div>
                                             <p className='p2'>{ap.product_details.name}</p>
                                             <p>TK {ap.price}</p>
+                                            <p className='p2'>{ap.quantity} x pcs</p>
                                         </div>
                                     </div>
                                 </div>
