@@ -42,7 +42,7 @@ const ChatWidget = () => {
             const data = await response.json();
             setMessages((prev: any) => [...prev, { role: "model", text: data }]);
         } catch (error) {
-            setMessages((prev: any) => [...prev, { role: "model", text: "প্রিয় গ্রাহক কিছুটা টেকনিক্যাল সমস্যা হয়েছে, আরেকবার চেষ্ঠা করুন।" }]);
+            setMessages((prev: any) => [...prev, { role: "model", text: "Dear customer, happened some technical issue. May be Gemini free tier api limit exceed." }]);
         }
 
         setMessage("")
@@ -71,7 +71,7 @@ const ChatWidget = () => {
                             Hello! Looking for a specific book today?
                         </div>
                         <div className="bg-red-100 text-blue-800 p-3 rounded-lg max-w-[80%] self-start text-sm">
-                            For hugging face free tier server, for the first time it may take 15-20 sec. Please wait..
+                            For hugging face free tier server, for the first time it may take a while. Please wait..
                         </div>
 
 
