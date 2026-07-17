@@ -27,7 +27,9 @@ export default function page() {
                 <div className='w-full p-4 border border-gray-300 rounded-xl'>
                     All Writers
                 </div>
-                <div className='w-full p-4 border border-gray-300 rounded-xl'>All Orders</div>
+                <Link href="/pendingOrders" className='w-full p-4 border border-gray-300 rounded-xl'>
+                    Pending Orders
+                </Link>
                 <div className='w-full p-4 border border-gray-300 rounded-xl'>All Orders</div>
             </div>
 
