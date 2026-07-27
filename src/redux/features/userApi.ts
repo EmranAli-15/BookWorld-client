@@ -11,7 +11,6 @@ export const booksApi = baseApi.injectEndpoints({
         }),
         updataUser: build.mutation({
             query: ({ id, data }) => {
-                console.log(data)
                 return {
                 url: `/user/updateUser/${id}`,
                 method: 'POST',

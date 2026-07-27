@@ -31,12 +31,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <UserProvider>
-          <ReduxProvider>
-            {children}
-          </ReduxProvider>
-        </UserProvider>
-        <Footer></Footer>
+        <div className="flex flex-col justify-between min-h-screen">
+          <UserProvider>
+            <ReduxProvider>
+              {children}
+            </ReduxProvider>
+          </UserProvider>
+          <Footer></Footer>
+        </div>
       </body>
     </html>
   );

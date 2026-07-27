@@ -103,17 +103,20 @@ export default function NavForMobile({ categories, writers }: { categories: any,
 
             </div>
 
-            <div className="block lg:hidden py-1 bg-green-50">
-                <form className="w-full flex justify-center">
+            <div className="flex items-center lg:hidden py-1 mx-2">
+                <form className='w-full'>
                     <input
                         onChange={(e) => setText(e.target.value)}
-                        className="border-[1px] outline-0 border-orange-400 w-[90%] px-3 py-2 rounded-3xl"
+                        className="border outline-0 border-secondary rounded-r-none w-full px-3 py-2 rounded-md"
                         placeholder="search by book name or author."
+                        value={text}
                         required
-                        type="search"
-                        name="search"
+                        type="text"
                     />
                 </form>
+                <button onClick={() => setText("")} className='btn btn-secondary rounded-l-none'>
+                    X
+                </button>
             </div>
 
             <div className='relative'>

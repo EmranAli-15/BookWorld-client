@@ -23,7 +23,6 @@ export default function NavbarForPc() {
             if (text) {
                 const res = await dispatch(booksApi.endpoints.searchBook.initiate({ text })).unwrap();
                 setData(res.data);
-                console.log(res)
             } else {
                 setData([]);
             }
@@ -46,17 +45,20 @@ export default function NavbarForPc() {
                     </div>
                 </div>
 
-                <div className="w-[40%]">
-                    <form>
+                <div className="w-[40%] flex items-center">
+                    <form className='w-full'>
                         <input
                             onChange={(e) => setText(e.target.value)}
-                            className="border-[1px] outline-0 border-orange-400 w-full px-3 py-2 rounded-3xl"
+                            className="border outline-0 border-secondary rounded-r-none w-full px-3 py-2 rounded-md"
                             placeholder="search by book name or author."
+                            value={text}
                             required
-                            type="search"
-                            name="search"
+                            type="text"
                         />
                     </form>
+                    <button onClick={() => setText("")} className='btn btn-secondary rounded-l-none'>
+                        X
+                    </button>
                 </div>
 
                 <Options></Options>

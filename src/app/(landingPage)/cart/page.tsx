@@ -34,8 +34,6 @@ export default function Cart() {
 
     const [totalProductPrice, setTotalProductPrice] = useState(0);
 
-    console.log(myCart)
-
     const handleSelection = ({ checked, book }: { checked: boolean, book: book }) => {
         const updatedCart = myCart.map((b: book) => b._id == book._id ? { ...b, isChecked: checked } : b)
         setMyCart(() => updatedCart);
@@ -166,9 +164,9 @@ export default function Cart() {
                             </button>
                         </div>
                         <div className='flex flex-col-reverse lg:flex-row items-center'>
-                            <button onClick={() => decrementQuantity(book._id)} className='btn p-3 size-6'>-</button>
+                            <button onClick={() => decrementQuantity(book._id)} className='btn shadow-none bg-slate-100 border-0 text-black p-3 size-6'>-</button>
                             <p className='p-2' >{book.need}</p>
-                            <button onClick={() => incrementQuantity(book._id)} className='btn p-3 size-6'>+</button>
+                            <button onClick={() => incrementQuantity(book._id)} className='btn shadow-none bg-slate-100 border-0 text-black p-3 size-6'>+</button>
                         </div>
                         <div className='hidden lg:block'>
                             <h1 className='p1 font-medium text-red-600'>tk {book.price}</h1>

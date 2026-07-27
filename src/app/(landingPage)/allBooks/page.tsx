@@ -55,12 +55,23 @@ export default function page() {
                 }
 
                 <div className='flex justify-center mt-2'>
-                    {!loadMore && <button disabled={noMoreBooks} onClick={() => updatePage()} className="btn btn-outline btn-secondary">
-                        {noMoreBooks ? "NO MORE BOOKS" : "Load More"}
-                    </button>}
-                    {
-                        loadMore && <div className='buttonLoader'></div>
-                    }
+                    <div>
+                        {
+                            noMoreBooks &&
+                            <button className="btn btn-outline btn-secondary">
+                                NO MORE BOOKS
+                            </button>
+                        }
+                        {
+                            !loadMore && !noMoreBooks &&
+                            <button onClick={() => updatePage()} className="btn btn-outline btn-secondary">
+                                Load More
+                            </button>
+                        }
+                        {
+                            loadMore && <div className='buttonLoader my-3'></div>
+                        }
+                    </div>
                 </div>
             </Container>
         </div>

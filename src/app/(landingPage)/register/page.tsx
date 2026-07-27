@@ -58,13 +58,13 @@ export default function page() {
               <h1 className="heading text-center"><span className='text-orange-400'>BOOK</span> <span className='text-green-400'>WORLD</span></h1>
               <h1 className="text-3xl text-center font-bold">Register now!</h1>
             </div>
-            <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-              <div className="card-body">
+            <div className="card bg-white w-full max-w-sm shrink-0 shadow-2xl">
+              <div className="card-body bg-white">
                 <form onSubmit={handleSubmit}>
                   <label className="label">Name</label>
                   <input
                     type="text"
-                    className="input"
+                    className="input bg-white border-gray-200 w-full"
                     placeholder="Name"
                     required
                     onChange={(e) => setName(e.target.value)}
@@ -74,7 +74,7 @@ export default function page() {
                   <label className="label">Email</label>
                   <input
                     type="email"
-                    className="input"
+                    className="input bg-white border-gray-200 w-full"
                     placeholder="Email"
                     required
                     onChange={(e) => setEmail(e.target.value)}
@@ -84,7 +84,7 @@ export default function page() {
                   <label className="label">Password</label>
                   <input
                     type="password"
-                    className="input"
+                    className="input bg-white border-gray-200 w-full"
                     placeholder="Password"
                     required
                     onChange={(e) => setPassword(e.target.value)}
@@ -94,14 +94,14 @@ export default function page() {
                   <label className="label">Confirm Password</label>
                   <input
                     type="password"
-                    className="input"
+                    className="input bg-white border-gray-200 w-full"
                     placeholder="Password"
                     required
                     onChange={(e) => setConPassword(e.target.value)}
                     value={conPassword}
                   />
                   <Link href="/login" className='text-blue-700'>Login</Link>
-                  <button type='submit' className="btn btn-neutral mt-4 w-full">
+                  <button type='submit' className="btn bg-white border-gray-200 text-black mt-4 w-full">
                     {
                       isLoading ? "Loading .." : "Register"
                     }
