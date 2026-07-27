@@ -4,7 +4,7 @@ import React from 'react'
 export default function Footer() {
     return (
         <div className='mt-10'>
-            <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+            <footer className="footer sm:footer-horizontal bg-white p-10">
                 <nav className='mx-auto'>
                     <h6 className="footer-title">Services</h6>
                     <a className="link link-hover">Branding</a>
@@ -26,7 +26,7 @@ export default function Footer() {
                     <a className="link link-hover">Cookie policy</a>
                 </nav>
             </footer>
-            <div className="bg-base-200 text-base-content border-base-300 border-t py-4">
+            <div className="border-base-300 border-t py-4">
                 <Container>
                     <footer className="footer">
                         <aside className="grid-flow-col items-center">

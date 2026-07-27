@@ -40,6 +40,6 @@ export default function AddCardButton({ book }: { book: any }) {
     }, [isError, isSuccess])
 
     return (
-        <button onClick={() => addToCart()} className="btn btn-soft btn-info w-full mb-1">Add to cart</button>
+        <button onClick={() => addToCart()} className="btn btn-soft btn-info bg-blue-50 hover:bg-blue-400 outline-0 hover:text-white border-0 w-full mb-1">Add to cart</button>
     )
 }

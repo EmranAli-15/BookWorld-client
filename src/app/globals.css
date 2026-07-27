@@ -11,6 +11,7 @@ body {
   background: #f1f2f4;
   min-width: 100vw;
   min-height: 100dvh;
+  color: #000 !important;
 }
 
 /* START START START START START START START */
