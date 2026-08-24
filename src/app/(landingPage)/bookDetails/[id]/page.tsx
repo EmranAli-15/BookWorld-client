@@ -32,8 +32,8 @@ export default async function page({ params }: { params: Promise<{ id: string }>
                 <div className='lg:w-[65%] flex flex-col gap-y-3'>
                     <h1 className='h1 font-medium my-2'>{data.name}</h1>
                     <div>
-                        <p className='p1'>By: <Link href={`/writerBooks/${data.writer._id}`} className='text-blue-600'>{data.writer.name}</Link></p>
-                        <p className='p1'>Category: <Link href={`/categoryBooks/${data.category._id}`} className='text-blue-600'>{data.category.name}</Link></p>
+                        <p className='p1'>By: <Link href={`/writerBooks/${data.writer._id}`} className='pri-color'>{data.writer.name}</Link></p>
+                        <p className='p1'>Category: <Link href={`/categoryBooks/${data.category._id}`} className='pri-color'>{data.category.name}</Link></p>
                     </div>
                     <div className='flex items-center my-1'>
                         <RatingIcon w={15}></RatingIcon>

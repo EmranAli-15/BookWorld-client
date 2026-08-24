@@ -1,9 +1,9 @@
 ## Live: ```https://bookworld-client.vercel.app/```
 ## Technologies:
-### Next.js, Express.js, MongoDB, Mongoose, TypeScript
+### Next.js, Express.js, Flask, Gemini Api, MongoDB, Mongoose, TypeScript
 
 ## Key Features:
-### SSG, SSR for fast and caching mechanism.
+### SSG, SSR, Agentic chatbot.
 
 ### Authentication
 Used next auth for authentication and authorization.
@@ -19,5 +19,9 @@ In logged in state a user can see his/her dashboard. Here you will see your all 
 By clicking a book you will redirect to the book details. There you can see all the details about the book.
 
 
-## A DUMMY ACCOUNT
-```acc: opu@gmail.com``` ```pwd: 123456```
+## Test account
+```acc: nazninjhuma58@gmail.com``` ```pwd: 123456```
+
+
+## Database design
+![db-design](public/db-design.PNG)

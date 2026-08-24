@@ -41,7 +41,7 @@ export default function NavbarForPc() {
                 <div className='flex items-center gap-x-2'>
                     <Link href="/"><Image width={50} src={logo} alt='BW'></Image></Link>
                     <div className="w-auto">
-                        <p className='text-2xl font-medium'><span className='text-green-400'>Book </span><span className='text-orange-400'>World</span></p>
+                        <p className='text-2xl font-bold'><span className='text-green-400'>Book </span><span className='pri-color'>World</span></p>
                     </div>
                 </div>
 
@@ -73,10 +73,10 @@ export default function NavbarForPc() {
                                 {
                                     data.map((book: any) => {
                                         return <Link href={`/bookDetails/${book._id}`} key={book._id}>
-                                            <div onClick={() => setData([])} className='mt-3 cursor-pointer p-2 flex gap-x-2'>
+                                            <div onClick={() => setData([])} className='mt-3 cursor-pointer p-2 flex gap-x-2 hover:bg-[#f430994f]'>
                                                 <Image className='h-16 w-11' src={book.image} height={50} width={50} alt={book.name}></Image>
                                                 <div className='w-full'>
-                                                    <p className='p1 hover:text-orange-500'>{book.name}</p>
+                                                    <p className='p1 hover:text-[#f43098]'>{book.name}</p>
                                                     <div className='flex justify-between w-full'>
                                                         <p className='p2'>{book.writerData.name}</p>
                                                         <p className='p2 mr-2'>Tk {book.price}</p>
